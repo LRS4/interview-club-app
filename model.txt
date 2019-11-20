@@ -1,0 +1,17 @@
+Question:
+	id;
+	name;
+	count; (I was also asked this!)
+	sectors; (dropdown)
+	vacancy_titles;
+	difficult_rating;
+	date_submitted;	
+
+Answer:
+	id;
+	body;
+	upvote;
+	downvote;
+	sector;
+	vacancy_title;
+	date_submitted;
