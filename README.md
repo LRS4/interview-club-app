@@ -19,6 +19,7 @@ The application will be built using the MERN stack - this interested me as I wan
 * npm init -y
 * graphql-yoga
 * create-react-app
+* material-ui
 * react-apollo
 * npm install apollo-boost @apollo/react-hooks graphql
 * mongo: C:\Program Files\MongoDB\Server\4.2\bin\mongo.exe
@@ -30,6 +31,7 @@ The application will be built using the MERN stack - this interested me as I wan
 * https://www.mongodb.com/
 * https://github.com/nodejs/node-gyp#on-windows
 * https://www.apollographql.com/docs/graphql-tools/generate-schema/
+* https://material-ui.com/
 
 ## Model Outline
 

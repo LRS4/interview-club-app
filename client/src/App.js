@@ -1,7 +1,8 @@
 import React from 'react';
-import logo from './logo.png';
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { graphql } from 'react-apollo';
+import { Header, Footer } from './Components/Layouts'
+import Questions from './Components/Questions'
 
 const QuestionsQuery = gql`
   {
@@ -16,30 +17,16 @@ const QuestionsQuery = gql`
   }
 `;
 
-function Questions() {
-  const { loading, error, data } = useQuery(QuestionsQuery);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
-  console.log(data);
-
-  return data.questions.map(({ id, text, votes, difficulty, sectors, job_titles }) => (
-    <div key={id}>
-      <p>
-        {text} {votes} {difficulty} {sectors} {job_titles}
-      </p>
-    </div>
-  ));
-}
-
 function App() {
   return (
     <div>
-      <img src={logo} alt="Interview Club logo"/>
-    </div>,
-    Questions()
+      <Header/>
+      
+      <Questions/>
+
+      <Footer/>
+    </div>
   );
 }
 
-export default (App);
+export default graphql(QuestionsQuery)(App);
