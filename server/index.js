@@ -9,7 +9,7 @@ var Question = mongoose.model('Question',{
     votes:{ type: Number, default: 0 },
     difficulty: { type: Number, default: 0 },
     sectors : [String],
-    job_titles: [String],
+    job_titles: [String]
 });
 
 var Answer = mongoose.model('Answer',{
@@ -29,6 +29,7 @@ const typeDefs = `
     answers: [Answer]
     answer(id:ID!): Answer
     answers_filter(questionId: String) : [Answer]
+    answers_count(questionId: String) : Int
   }
 
   type Question {
@@ -50,23 +51,37 @@ const typeDefs = `
       downvotes: Int
       sector : String!
       job_title: String!
-      questionId: String!
+      questionId: String
+      question: Question
   }
 
   type Mutation {
       createQuestion(text: String!): Question
-      upvoteQuestion(id: ID!, votes: Int) : Boolean
+      upvoteQuestion(id: ID!) : Boolean
       removeQuestion(id: ID!) : Boolean
       createAnswer(text: String!, sector: String!, job_title: String!, questionId: String!) : Answer
+      removeAnswer(id: ID!) : Boolean
+      addQuestionMeta(id: ID!, sector: String!, job_title: String!) : Boolean
   }
 `
 const resolvers = {
+  // https://stackoverflow.com/questions/47241230/relationships-graphql
+
+  Question: {
+    answers: (question, {}) => Answer.find({"questionId":question.id}) // for relationship 
+  },
+
+  Answer: {
+    question: (answer, args) => Question.findById(answer.questionId), // for relationship
+  },
+
   Query: {
     questions: () => Question.find(),
     answers: () => Answer.find(),
     question: async (_, {id}) => { return Question.findById(id) },
     answer: async (_, {id}) => { return Answer.findById(id) },
-    answers_filter: async (_, {questionId}) => { return Answer.find({"questionId":questionId}) } // find by questionId
+    answers_filter: async (_, {questionId}) => { return Answer.find({"questionId":questionId}) }, // find by questionId
+    answers_count: async (_, {questionId}) => { return Answer.find({"questionId":questionId}).countDocuments() } // find by questionId
   }, 
 
   Mutation: {
@@ -75,18 +90,28 @@ const resolvers = {
         await question.save();
         return question;
     },
-    upvoteQuestion: async (_, {id, votes}) => {
-        await Question.findByIdAndUpdate(id, {votes});
-        return true;
-    },
     removeQuestion: async (_, {id}) => {
         await Question.findByIdAndRemove(id);
         return true;
     },
-    createAnswer: async (_, {text, sector, job_title, questionId}) => {
+    upvoteQuestion: async (_, {id}) => {
+        await Question.findByIdAndUpdate(id, { $inc: { votes: 1 }} )
+        return true;
+    },
+    addQuestionMeta: async (_,{id, sector, job_title}) => {
+        // $addToSet pushes to array but avoids duplicates
+        // $push pushes to array but can have duplicates
+        await Question.findByIdAndUpdate(id, { $addToSet: { sectors: sector, job_titles : job_title }});
+        return true
+    },
+    createAnswer: async (_, {text, sector, job_title, questionId }) => {
         const answer = new Answer({ text, sector, job_title, questionId })
         await answer.save();
         return answer;
+    },
+    removeAnswer: async (_, {id}) => {
+      await Answer.findByIdAndRemove(id);
+      return true;
     }
   }
 }
