@@ -29,7 +29,7 @@ function QuestionsRead() {
     
     <List component="nav" aria-label="secondary mailbox folders">
       <ListItem button key={id}>
-        <ListItemText primary={text} secondary={votes + " others were asked this"} style={{ textAlign: "center" }} />
+        <ListItemText primary={text} secondary={ votes + " others were asked this" } style={{ textAlign: "center" }} />
       </ListItem>
       <Divider />
     </List>
