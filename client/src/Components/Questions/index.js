@@ -15,14 +15,20 @@ const QuestionsQuery = gql`
       difficulty
       sectors
       job_titles
+      answers {
+        id
+        text
+        sector
+        job_title
+      }
     }
   }
-`;
+`;  
 
-function QuestionsRead() {
+function QuestionsResults() {
   const { loading, error, data } = useQuery(QuestionsQuery);
   console.log(data);
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <img style={{ marginLeft: 500 }} alt="Loading..." src="logo192.png"/>;
   if (error) return <p>Error :(</p>;
 
   return data.questions.map(({ id, text, votes, difficulty, sectors, job_titles }) => ( 
@@ -33,10 +39,11 @@ function QuestionsRead() {
       </ListItem>
       <Divider />
     </List>
+    
   ));
 }
 
 export default props => 
     <div>
-        {QuestionsRead()}
+        {QuestionsResults()}
     </div>
