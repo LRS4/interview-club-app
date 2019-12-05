@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 import logo from '../../../src/logo.png'
 
 const useStyles = makeStyles(theme => ({
@@ -25,10 +25,10 @@ export default props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar style={{ background: '#2E3B55' }} position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
+          <IconButton onClick={props.Questions} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <HomeIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             { <img style={{ marginTop:10, height:50 }} src={logo} alt="Logo" /> }
