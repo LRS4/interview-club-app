@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1
-  },
+  }
 }));
 
 export default props => {
@@ -31,7 +31,7 @@ export default props => {
             <HomeIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            { <img style={{ marginTop:10, height:50 }} src={logo} alt="Logo" /> }
+            { <img style={{ position: 'absolute', left: '50%', top:'50%', transform: 'translate(-50%, -50%)', height:50 }} src={logo} alt="Logo" /> }
           </Typography>
           <IconButton aria-label="search" color="inherit">
             <SearchIcon />
