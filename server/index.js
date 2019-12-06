@@ -9,7 +9,8 @@ var Question = mongoose.model('Question',{
     votes:{ type: Number, default: 0 },
     difficulty: { type: Number, default: 0 },
     sectors : [String],
-    job_titles: [String]
+    job_titles: [String],
+    competencies: [String]
 });
 
 var Answer = mongoose.model('Answer',{
@@ -39,6 +40,7 @@ const typeDefs = `
       votes: Int
       difficulty: Int
       sectors: [String]
+      competencies: [String]
       job_titles: [String]
       answers: [Answer]
   }
