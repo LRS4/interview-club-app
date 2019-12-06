@@ -62,6 +62,8 @@ function GetOneQuestion(questionId) {
                     { data.question.answers[i].text }
                   </Typography>
                   <Chip size="small" label={ upvotes } />
+                  <Chip size="small" label={ data.question.answers[i].job_title } />
+                  <Chip size="small" label={ data.question.answers[i].sector } />
                   <Chip size="small" label={ date.replace("GMT+0000 (Greenwich Mean Time)", "") } />
                 </Paper>
                 <Tooltip title="Add an answer">
@@ -130,7 +132,7 @@ function GetOneQuestion(questionId) {
 export default props => {
     return (
         <div>
-            { GetOneQuestion("5dd7f2ac4e99f647e41e8fcc") }
+            { GetOneQuestion("5dea9ed6f58dea055c874d67") }
         </div>
     );
 }
