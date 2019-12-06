@@ -41,14 +41,15 @@ function GetAllQuestions() {
   
   if (error) return <p>Error :(</p>;
 
-  return data.questions.map(({ id, text, votes, date, difficulty, sectors, job_titles }) => ( 
+  return data.questions.map(({ id, text, votes, date, difficulty, sectors, job_titles, answers }) => ( 
     
     <List style={{ marginTop: 10 }} component="nav" aria-label="secondary mailbox folders">
       <ListItem alignItems="flex-start" button key={id}>
         <ListItemText primary={text} secondary={
           <span>
-            <Chip size="small" label={ votes + " others were asked this!" } />  
-            <Chip size="small" label={ "Added " + new Date(parseInt(date)).toDateString().replace("GMT+0000 (Greenwich Mean Time)", "") } />      
+            <Chip style={{ marginTop: 10 }} size="small" label={ votes + " others were asked this!" } />
+            <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ answers.length + " answers"} />    
+            <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ "Added " + new Date(parseInt(date)).toDateString().replace("GMT+0000 (Greenwich Mean Time)", "") } />      
           </span>
         } style={{ textAlign: "center" }} />
       </ListItem>
