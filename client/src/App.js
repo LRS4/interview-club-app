@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Header, Footer } from './Components/Layouts'
 import { Question, Questions} from './Components/Questions'
 import Container from '@material-ui/core/Container';
@@ -7,16 +8,19 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 function App() {
   return (
     <div>
-      <CssBaseline/>
-      <Header/>
-      
-      <Container maxWidth="md">
+      <Router>
+        <CssBaseline/>
+        <Header/>
+        
+        <Container maxWidth="md">
 
-         <Questions/>
+          <Route exact path="/" component={ Questions } />
+          <Route exact path="/question" component={ Question } />
 
-      </Container>
+        </Container>
 
-      <Footer/>
+        <Footer/>
+      </Router>
     </div>
   );
 }
