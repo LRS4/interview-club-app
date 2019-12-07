@@ -41,22 +41,26 @@ function GetAllQuestions() {
   
   if (error) return <p>Error :(</p>;
 
-  return data.questions.map(({ id, text, votes, date, difficulty, sectors, job_titles, answers }) => ( 
+  return ( 
     
     <List style={{ marginTop: 10 }} component="nav" aria-label="secondary mailbox folders">
-      <ListItem alignItems="flex-start" button key={id}>
-        <ListItemText primary={text} secondary={
-          <span>
-            <Chip style={{ marginTop: 10 }} size="small" label={ votes + " others were asked this!" } />
-            <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ answers.length + " answers"} />    
-            <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ "Added " + new Date(parseInt(date)).toDateString().replace("GMT+0000 (Greenwich Mean Time)", "") } />      
-          </span>
-        } style={{ textAlign: "center" }} />
-      </ListItem>
-      <Divider />
+      { data.questions.map(({ id, text, votes, date, difficulty, sectors, job_titles, answers }) =>
+        <React.Fragment>
+          <ListItem alignItems="flex-start" button key={id} onClick={() => console.log(id)}>
+            <ListItemText primary={text} secondary={
+              <span>
+                <Chip style={{ marginTop: 10 }} size="small" label={ votes + " others were asked this!" } />
+                <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ answers.length + " answers"} />    
+                <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ "Added " + new Date(parseInt(date)).toDateString().replace("GMT+0000 (Greenwich Mean Time)", "") } />      
+              </span>
+            } style={{ textAlign: "center" }} />
+          </ListItem>
+          <Divider />
+        </React.Fragment>
+      )}
     </List>
     
-  ));
+  );
 }
 
 export default props => {
