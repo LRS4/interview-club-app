@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
 import logo from '../../../src/logo.png'
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +28,13 @@ export default props => {
     <div className={classes.root}>
       <AppBar style={{ background: '#2E3B55' }} position="static">
         <Toolbar>
-          <IconButton onClick={props.Questions} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton 
+              edge="start" 
+              className={classes.menuButton} 
+              color="inherit"
+              aria-label="menu"
+              component={Link}
+              to="/">
             <HomeIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>

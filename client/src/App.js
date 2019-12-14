@@ -15,7 +15,10 @@ function App() {
         <Container maxWidth="md">
 
           <Route exact path="/" component={ Questions } />
-          <Route exact path="/question" component={ Question } />
+          
+          <Route path="/question/:questionId" render={props => (
+            <Question {...props} />
+          )}/>
 
         </Container>
 
