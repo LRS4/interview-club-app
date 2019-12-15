@@ -5,6 +5,8 @@ import { Question, Questions} from './Components/Questions'
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+// https://reacttraining.com/react-router/web/guides/quick-start
+
 function App() {
   return (
     <div>
@@ -17,7 +19,7 @@ function App() {
           <Route exact path="/" component={ Questions } />
           
           <Route path="/question/:questionId" render={props => (
-            <Question {...props} />
+            <Question {...props} /> 
           )}/>
 
         </Container>

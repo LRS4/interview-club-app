@@ -13,6 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import Chip from '@material-ui/core/Chip';
+import { useParams } from 'react-router-dom';
 
 const GET_QUESTION = gql`
   query Question($id: ID!) {
@@ -39,8 +40,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function GetOneQuestion(questionId) {
+function GetOneQuestion() {
   const classes = useStyles(); 
+  const { questionId } = useParams();
   const { loading, error, data } = useQuery(GET_QUESTION, { variables: { id: questionId }});
   if (loading) return (
     <div style={{display: 'flex', justifyContent: 'center', marginTop: 100}}>
@@ -61,10 +63,10 @@ function GetOneQuestion(questionId) {
                   <Typography component="p">
                     { data.question.answers[i].text }
                   </Typography>
-                  <Chip size="small" label={ upvotes } />
-                  <Chip size="small" label={ data.question.answers[i].job_title } />
-                  <Chip size="small" label={ data.question.answers[i].sector } />
-                  <Chip size="small" label={ date.replace("GMT+0000 (Greenwich Mean Time)", "") } />
+                  <Chip style={{ marginTop: 10 }} size="small" label={ upvotes } />
+                  <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ data.question.answers[i].job_title } />
+                  <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ data.question.answers[i].sector } />
+                  <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ date.replace("GMT+0000 (Greenwich Mean Time)", "") } />
                 </Paper>
                 <Tooltip title="Add an answer">
                   <IconButton aria-label="Add question">
@@ -94,8 +96,8 @@ function GetOneQuestion(questionId) {
         <Typography variant="h5" component="h3">
           { data.question.text }
         </Typography>
-        <Chip size="small" label={ questionVotes } />
-        <Chip size="small" label={ questionDate.replace("GMT+0000 (Greenwich Mean Time)", "") } />
+        <Chip style={{ marginTop: 10 }} size="small" label={ questionVotes } />
+        <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ questionDate.replace("GMT+0000 (Greenwich Mean Time)", "") } />
       </Paper>
       <div style={{ textAlign: "center" }}>
         <Tooltip title="Previous question">
@@ -132,7 +134,7 @@ function GetOneQuestion(questionId) {
 export default props => {
     return (
         <div>
-            { GetOneQuestion("5dd7f2ac4e99f647e41e8fcc") }
+            { GetOneQuestion() }
         </div>
     );
 }
