@@ -2,8 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import CreateQuestion from '../Dialogs/CreateQuestion'
 
 const useStyles = makeStyles(theme => ({
     text: {
@@ -36,16 +35,13 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
 export default props => {
     const classes = useStyles();
 
     return (
         <AppBar style={{ background: '#2E3B55' }} position="fixed" className={classes.appBar}>
             <Toolbar>
-            <Fab color="secondary" aria-label="add" className={classes.fabButton}>
-                <AddIcon />
-            </Fab>
+              <CreateQuestion/>
             </Toolbar>
         </AppBar>
     );

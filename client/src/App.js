@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Header, Footer } from './Components/Layouts'
-import { Question, Questions} from './Components/Questions'
+import { Question, Questions } from './Components/Questions'
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 

@@ -3,6 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import Welcome from '../Dialogs/Welcome'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
@@ -43,6 +44,7 @@ export default props => {
           <IconButton aria-label="search" color="inherit">
             <SearchIcon />
           </IconButton>
+          <Welcome/>
         </Toolbar>
       </AppBar>
     </div>

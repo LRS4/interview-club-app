@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
@@ -13,6 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import Chip from '@material-ui/core/Chip';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import { useParams } from 'react-router-dom';
 
 const GET_QUESTION = gql`
@@ -68,11 +68,6 @@ function GetOneQuestion() {
                   <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ data.question.answers[i].sector } />
                   <Chip style={{ marginLeft: 5, marginTop: 10 }} size="small" label={ date.replace("GMT+0000 (Greenwich Mean Time)", "") } />
                 </Paper>
-                <Tooltip title="Add an answer">
-                  <IconButton aria-label="Add question">
-                    <AddIcon />
-                  </IconButton>
-                </Tooltip>
                 <Tooltip title="View details">
                   <IconButton aria-label="vote">
                     <InfoOutlinedIcon />
@@ -105,14 +100,14 @@ function GetOneQuestion() {
             <SkipPreviousIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Add question">
-          <IconButton aria-label="Add question">
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
         <Tooltip title="View details">
           <IconButton aria-label="vote">
             <InfoOutlinedIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Add answer">
+          <IconButton aria-label="Add question">
+            <PostAddIcon />
           </IconButton>
         </Tooltip>
         <Tooltip title="I was asked this!">
