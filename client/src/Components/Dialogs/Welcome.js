@@ -45,7 +45,7 @@ export default class extends Component {
             <ul>
               <li>Search for questions by sector</li>
               <li>Filter answers by job title, sector and date</li>
-              <li>Rate an answer</li>
+              <li>Rate an answer - and the best will move to the top!</li>
               <li>Upvote a question - I was asked this!</li>
               <li>Many more...</li>
             </ul>
