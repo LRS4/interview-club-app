@@ -16,7 +16,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 export default class extends Component {
   state = {
-    open: false
+    open: false,
+    question: '',
+    jobTitle: '',
+    sector: '',
+    competency: ''
   }
 
   handleToggle = () => {
@@ -26,11 +30,8 @@ export default class extends Component {
   }
 
   handleSubmit = () => {
-    // TODO: form validation
-    var formQuestion = document.getElementById('newQuestion').value;
-    var formJobTitle = document.getElementById('questionJobTitle').value;
-    var formSector = document.getElementById('sector-select-id').innerHTML;
-    var formCompetency = document.getElementById('competency-select-id').innerHTML;
+    const {question, jobTitle, sector, competency} = this.state;
+    console.log(question, jobTitle, sector, competency);
 
     this.setState({
       open: false
@@ -59,6 +60,8 @@ export default class extends Component {
             margin="dense"
             label="What was the interview question?"
             placeholder="Give me an example of a time you had to solve a problem?"
+            value={this.state.question}
+            onChange={event => this.setState({ question: event.target.value })}
             multiline
             fullWidth
             required
@@ -68,6 +71,8 @@ export default class extends Component {
             margin="dense"
             label="What was the job title?"
             placeholder="Office Manager"
+            value={this.state.jobTitle}
+            onChange={event => this.setState({ jobTitle: event.target.value })}
             fullWidth
             required
           />
@@ -78,6 +83,8 @@ export default class extends Component {
             <Select
               labelId="sector-select"
               id="sector-select-id"
+              value={this.state.sector}
+              onChange={event => this.setState({ sector: event.target.value })}
             >
               <MenuItem value={'finance'}>Accountancy, banking and finance</MenuItem>
               <MenuItem value={'management'}>Business and management</MenuItem>
@@ -111,6 +118,8 @@ export default class extends Component {
             <Select
               labelId="sector-select"
               id="competency-select-id"
+              value={this.state.competency}
+              onChange={event => this.setState({ competency: event.target.value })}
             >
               <MenuItem value={'teamwork'}>Teamwork</MenuItem>
               <MenuItem value={'communication'}>Communication</MenuItem>
