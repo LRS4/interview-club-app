@@ -14,6 +14,25 @@ The application will be built using the MERN stack - this interested me as I wan
 * Nodejs
 * GraphQL
 
+## Installation
+
+Install packages
+```
+npm install
+```
+
+Run GraphQl server
+```
+cd server
+node index.js
+```
+
+Run React app
+```
+cd client
+npm start
+```
+
 ## Packages used
 
 * npm init -y
