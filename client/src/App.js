@@ -1,31 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Header, Footer } from './Components/Layouts'
-import { Question, Questions} from './Components/Questions'
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-// https://reacttraining.com/react-router/web/guides/quick-start
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
   return (
-    <div>
-      <Router>
-        <CssBaseline/>
-        <Header/>
-        
-        <Container maxWidth="md">
-
-          <Route exact path="/" component={ Questions } />
-          
-          <Route path="/question/:questionId" render={props => (
-            <Question {...props} /> 
-          )}/>
-
-        </Container>
-
-        <Footer/>
-      </Router>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
