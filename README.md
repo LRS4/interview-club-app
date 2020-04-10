@@ -2,7 +2,7 @@
 
 ## About
 
-The first rule of Interview Club is that you don't talk about interview club! This app is a sharing platform where questions and answers to interview questions can be posted, answered, rated and searched for. It will be a simple CRUD application aimed at delivering this sole objective.
+The first rule of Interview Club is that you don't talk about interview club! This app is a sharing platform where questions and answers to interview questions can be posted, answered, rated and searched for. It will be a simple CRUD application that uses React as the frontend with MongoDB and Express for the backend server and APIs.
 
 ## Build
 
@@ -12,16 +12,15 @@ The application will be built using the MERN stack - this interested me as I wan
 * Express
 * React
 * Nodejs
-* GraphQL
 
-## Installation
+## Running the application
 
 Install packages
 ```
 npm install
 ```
 
-Run GraphQl server
+Run Express server
 ```
 cd server
 nodemon server
@@ -35,21 +34,29 @@ npm start
 
 ## Packages used
 
-* npm init -y
-* graphql-yoga
-* create-react-app
-* material-ui
-* react-apollo
-* npm install apollo-boost @apollo/react-hooks graphql
-* mongo: C:\Program Files\MongoDB\Server\4.2\bin\mongo.exe
+* Create React App
+* npm install -g create-react-app
+* npx create-react-app
+
+* Nodemon
+* Automatically restarts application/server when changes in the directory are detected
+* npm install -g nodemon
+
+* Express, Mongoose, CORS and Dotenv
+* cd server
+* npm install express mongoose cors dotenv
+
+## Tools used
+
+* Postman - to test API calls
+* MongoDB Atlas and Compass
+* VS Code
 
 ## References
 
-
-* [Mern Stack App](https://www.youtube.com/watch?v=HKqbBrl_fKc&list=PLcCp4mjO-z9_y8lByvIfNgA_F18l-soQv)
-* [Mern Tutorial Edureka](https://www.youtube.com/watch?v=rpJO0T08Bnc)
+* [MERN App](https://www.youtube.com/watch?v=7CqJlxBYj-M)
 * [Npm](https://www.npmjs.com/get-npm)
+* [React](https://reactjs.org/tutorial/tutorial.html)
 * [MongoDB](https://www.mongodb.com/)
 * [Nodejs](https://github.com/nodejs/node-gyp#on-windows)
-* [Apollo GraphQL](https://www.apollographql.com/docs/graphql-tools/generate-schema/)
-* [MaterialUI](https://www.youtube.com/playlist?list=PLcCp4mjO-z98WAu4sd0eVha1g-NMfzHZk)
+* [nodemon](https://www.npmjs.com/package/nodemon)
