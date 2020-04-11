@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline
 } from "mdbreact";
@@ -8,10 +7,10 @@ export default class Navbar extends Component {
 
     state = {
         isOpen: false
-      };
+    };
       
     toggleCollapse = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+        this.setState({ isOpen: !this.state.isOpen });
     }
 
     render() {
