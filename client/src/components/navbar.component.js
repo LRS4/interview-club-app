@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {
-MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
-MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
+MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline
 } from "mdbreact";
 
 export default class Navbar extends Component {
@@ -25,13 +24,13 @@ export default class Navbar extends Component {
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
                     <MDBNavbarNav left>
                         <MDBNavItem active>
-                        <MDBNavLink to="/">Home</MDBNavLink>
+                            <MDBNavLink to="/">Home</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                        <MDBNavLink to="/create">Create Question</MDBNavLink>
+                            <MDBNavLink to="/create">Create Question</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                        <MDBNavLink to="/user">Create User</MDBNavLink>
+                            <MDBNavLink to="/user">Create User</MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
