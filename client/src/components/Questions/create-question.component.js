@@ -6,41 +6,45 @@ export default class CreateQuestion extends Component {
     constructor(props) {
         super(props);
 
+        // Way to bind functions to this if not using arrow functions
+        // https://medium.com/@nikolalsvk/loosing-bind-this-in-react-8637ebf372cf
+        // this.onChangeUsername = this.onChangeUsername.bind(this);
+
         this.state = {
             username: "",
             text: "", 
             job: "",
-            users: []
+            users: [],
+            sectors: []
         }
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.setState({
             users: ['test user'],
-            username: 'TestUser',
             sectors: ['Administrative', 'Technology', 'Retail', 'Banking', 'Engineering', 'Public Services']
         })
     }
 
-    onChangeUsername(e) {
+    onChangeUsername = (e) => {
         this.setState({
             username: e.target.value
         });
     }
 
-    onChangeText(e) {
+    onChangeText = (e) => {
         this.setState({
             text: e.target.value
         });
     }
 
-    onChangeJob(e) {
+    onChangeJob = (e) => {
         this.setState({
             job: e.target.value
         });
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
 
         const question = {
@@ -63,15 +67,36 @@ export default class CreateQuestion extends Component {
                     <form onSubmit={this.onSubmit}>
                         <p className="h5 text-center mb-4"></p>
                         <div className="grey-text">
-                            <MDBInput type="textarea" label="What was the question?" rows="5" />
-                            <MDBInput label="What was the job?" group type="text" validate error="wrong"
-                                success="right" />
+                            <MDBInput 
+                                type="textarea" 
+                                label="What was the question?" 
+                                rows="5" 
+                                onChange={this.onChangeText}
+                                value={this.state.text}
+                            />
+                            <MDBInput 
+                                label="What was the job?" 
+                                group type="text" 
+                                validate error="wrong"
+                                success="right" 
+                                onChange={this.onChangeJob}
+                                value={this.state.job}
+                            />
                             <div className="select">
-                                <select className="select-text" required>
-                                    <option value="" disabled selected></option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
+                                <select itemRef="userInput"
+                                    className="select-text"
+                                    value={this.state.username}
+                                    onChange={this.onChangeUsername}
+                                    required
+                                >
+                                    <option value="" disabled></option>
+                                {
+                                    this.state.users.map(user => {
+                                        return (
+                                            <option key={user} value={user}>{user}</option>
+                                        )
+                                    })
+                                }
                                 </select>
                                 <span className="select-highlight"></span>
                                 <span className="select-bar"></span>
@@ -81,7 +106,9 @@ export default class CreateQuestion extends Component {
                                 error="wrong" success="right" />
                         </div>
                         <div className="text-center">
-                        <MDBBtn color="primary">Submit</MDBBtn>
+                            <MDBBtn type="submit" color="primary">
+                                Submit
+                            </MDBBtn>
                         </div>
                     </form>
                     </MDBCol>
