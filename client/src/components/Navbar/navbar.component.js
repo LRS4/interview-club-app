@@ -4,10 +4,13 @@ MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggle
 } from "mdbreact";
 
 export default class Navbar extends Component {
-
-    state = {
-        isOpen: false
-    };
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            isOpen: false
+        };
+    }
       
     toggleCollapse = () => {
         this.setState({ isOpen: !this.state.isOpen });
@@ -17,7 +20,7 @@ export default class Navbar extends Component {
         return (
             <MDBNavbar color="indigo darken-4" dark expand="md">
                 <MDBNavbarBrand>
-                <strong className="white-text">Navbar</strong>
+                    <strong className="white-text">Interview Club</strong>
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick={this.toggleCollapse} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
@@ -26,10 +29,10 @@ export default class Navbar extends Component {
                             <MDBNavLink to="/">Home</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBNavLink to="/create">Create Question</MDBNavLink>
+                            <MDBNavLink to="/create">Add Question</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBNavLink to="/user">Create User</MDBNavLink>
+                            <MDBNavLink to="/user">Sign Up</MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>

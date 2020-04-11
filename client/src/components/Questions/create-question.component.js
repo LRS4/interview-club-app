@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import axios from 'axios';
 import './create-question.css'
 
 export default class CreateQuestion extends Component {
@@ -20,10 +21,15 @@ export default class CreateQuestion extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({
-            users: ['test user'],
-            sectors: ['Administrative', 'Technology', 'Retail', 'Banking', 'Engineering', 'Public Services']
-        })
+        axios.get('http://localhost:5000/users')
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        users: response.data.map(user => user.username),
+                        username: response.data[0].username
+                    })
+                }
+            })
     }
 
     onChangeUsername = (e) => {
@@ -54,6 +60,10 @@ export default class CreateQuestion extends Component {
         }
 
         console.log(question);
+
+        axios.post('http://localhost:5000/questions/add', question)
+            .then(result => console.log(result.data))
+            .catch(err => console.log("Error: " + err));
 
         window.location = '/';
     }

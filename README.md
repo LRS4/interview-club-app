@@ -50,6 +50,9 @@ npm start
 * MDBootstrap
 * npm install mdbreact
 
+* Axios - to send HTTP requests to API
+* npm install axios
+
 ## Tools used
 
 * Postman - to test API calls
