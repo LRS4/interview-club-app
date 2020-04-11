@@ -6,7 +6,7 @@ The first rule of Interview Club is that you don't talk about interview club! Th
 
 ## Build
 
-The application will be built using the MERN stack - this interested me as I wanted to learn more about NoSQL databases and also React for front-end development. To start client use npm start and to start server use node index.js.
+The application will be built using the MERN stack - this interested me as I wanted to learn more about NoSQL databases and also React for front-end development.
 
 * MongoDB
 * Express
@@ -34,9 +34,10 @@ npm start
 
 ## Packages used
 
-* Create React App
+* Create React App, React Router
 * npm install -g create-react-app
 * npx create-react-app
+* npm install react-router-dom
 
 * Nodemon
 * Automatically restarts application/server when changes in the directory are detected
@@ -45,6 +46,9 @@ npm start
 * Express, Mongoose, CORS and Dotenv
 * cd server
 * npm install express mongoose cors dotenv
+
+* MDBootstrap
+* npm install mdbreact
 
 ## Tools used
 
@@ -60,3 +64,4 @@ npm start
 * [MongoDB](https://www.mongodb.com/)
 * [Nodejs](https://github.com/nodejs/node-gyp#on-windows)
 * [nodemon](https://www.npmjs.com/package/nodemon)
+* [MDBootstrap](https://mdbootstrap.com/docs/react/getting-started/quick-start/)
