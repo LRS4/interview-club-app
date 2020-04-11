@@ -29,19 +29,22 @@ export default class Navbar extends Component {
                             <MDBNavLink to="/">Home</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBNavLink to="/create">Add Question</MDBNavLink>
+                            <MDBNavLink to="/">About</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBNavLink to="/user">Sign Up</MDBNavLink>
+                            <MDBNavLink to="/create">Add Question</MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
                         <MDBNavItem>
-                        <MDBFormInline waves>
-                            <div className="md-form my-0">
-                            <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-                            </div>
-                        </MDBFormInline>
+                            <MDBFormInline waves>
+                                <div className="md-form my-0">
+                                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                                </div>
+                            </MDBFormInline>
+                        </MDBNavItem>
+                        <MDBNavItem>
+                            <MDBNavLink to="/user">Sign Up</MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                 </MDBCollapse>

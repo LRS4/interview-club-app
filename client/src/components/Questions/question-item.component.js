@@ -18,36 +18,51 @@ const Question = (props) => (
     <MDBRow>
         <MDBCol md="1" />
         <MDBCol md="10">
-            <MDBCard className="card-body " style={{ width: "100%", marginTop: "10px" }}>
+            <MDBCard className="card-body text-center" style={{ width: "100%", marginTop: "10px" }}>
                 <MDBCardTitle>
                     {props.question.text}
                 </MDBCardTitle>
                 <MDBCardText>
-                    <MDBCol sm="6"></MDBCol>
-                        Added by {props.question.username}
+                    Added by {props.question.username}
                 </MDBCardText>
                 <div className="flex-row">
-                    <MDBBtn color="primary">
-                        <MDBIcon icon="eye" style={{ marginRight: "10px" }} />
+                    <MDBBtn size="md" color="primary">
+                        <MDBIcon icon="list-alt" style={{ marginRight: "10px" }} />
                         View 12 Answers
                     </MDBBtn>
-                    <Link to={ "/edit/" + props.question._id} >
-                        <MDBBtn color="primary">
-                            <MDBIcon icon="pen" style={{ marginRight: "10px" }} />
-                            Edit
-                        </MDBBtn>
-                    </Link>
-                    <MDBBtn
-                        onClick={() => { props.deleteQuestion(props.question._id) }} 
-                        color="danger"
-                    >
-                        <MDBIcon icon="trash" style={{ marginRight: "10px" }} />
-                        Delete
+                    <MDBBtn size="md" color="primary">
+                        <MDBIcon icon="plus" style={{ marginRight: "10px" }} />
+                        Add an answer
+                    </MDBBtn>
+                    <MDBBtn size="md" color="primary">
+                        <MDBIcon icon="thumbs-up" style={{ marginRight: "10px" }} />
+                        I was asked this too!
                     </MDBBtn>
                 </div>
             </MDBCard>
         </MDBCol>
-        <MDBCol md="1" />
+        <MDBCol className="text-center" md="1">
+            <div style={{ marginTop: "25px" }}>
+                <Link to={ "/edit/" + props.question._id} >
+                    <MDBBtn 
+                        outline
+                        size="sm" 
+                        color="primary"
+                    >
+                            <MDBIcon icon="pen" />  
+                    </MDBBtn>
+                </Link>
+                <MDBBtn
+                    outline
+                    size="sm"
+                    onClick={() => { props.deleteQuestion(props.question._id) }} 
+                    color="danger"
+                >
+                    <MDBIcon icon="trash" />
+                    
+                </MDBBtn>
+            </div>
+        </MDBCol>
     </MDBRow>
 )
 

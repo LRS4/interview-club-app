@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Question from './question-item.component';
 import axios from 'axios';
-import { MDBContainer } from 'mdbreact';
+import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon } from 'mdbreact';
 
 export default class QuestionsList extends Component {
     constructor(props) {
@@ -53,7 +54,19 @@ export default class QuestionsList extends Component {
     render() {
         return (
             <MDBContainer>
-                  { this.createQuestionPanels() }  
+                <MDBRow>
+                    <MDBCol md="4" />
+                    <MDBCol md="4">
+                        <Link className="text-center" to="/create">
+                            <MDBBtn size="md" style={{ width: "100%" }}>
+                                <MDBIcon icon="rocket" style={{ marginRight: "10px" }} />
+                                Add New Question
+                            </MDBBtn>  
+                        </Link>  
+                    </MDBCol>
+                    <MDBCol md="4" />
+                </MDBRow>
+                { this.createQuestionPanels() }  
             </MDBContainer>
         )
     }
