@@ -34,24 +34,34 @@ npm start
 
 ## Packages used
 
-* Create React App, React Router
-* npm install -g create-react-app
-* npx create-react-app
-* npm install react-router-dom
+Create React App, React Router
+```
+npm install -g create-react-app
+npx create-react-app
+npm install react-router-dom
+```
 
-* Nodemon
+Nodemon
 * Automatically restarts application/server when changes in the directory are detected
-* npm install -g nodemon
+```
+npm install -g nodemon
+```
 
-* Express, Mongoose, CORS and Dotenv
-* cd server
-* npm install express mongoose cors dotenv
+Express, Mongoose, CORS and Dotenv
+```
+cd server
+npm install express mongoose cors dotenv
+```
 
-* MDBootstrap
-* npm install mdbreact
+MDBootstrap
+```
+npm install mdbreact
+```
 
-* Axios - to send HTTP requests to API
-* npm install axios
+Axios - to send HTTP requests to API
+```
+npm install axios
+```
 
 ## Tools used
 
