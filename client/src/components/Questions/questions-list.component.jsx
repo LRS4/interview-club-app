@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Question from './question-item.component';
 import axios from 'axios';
 import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon } from 'mdbreact';
+import './questions-list.component.scss'
 require('dotenv').config();
 
 export default class QuestionsList extends Component {
@@ -19,7 +20,7 @@ export default class QuestionsList extends Component {
             .then(response => {
                 this.setState({
                     questions: response.data
-                })
+                });
             })
             .catch(error => {
                 console.log("Error: " + error);
@@ -59,7 +60,7 @@ export default class QuestionsList extends Component {
                     <MDBCol md="4" />
                     <MDBCol md="4">
                         <Link className="text-center" to="/create">
-                            <MDBBtn size="md" style={{ width: "100%" }}>
+                            <MDBBtn className="interviewClubBtn" size="md" style={{ width: "100%" }}>
                                 <MDBIcon icon="rocket" style={{ marginRight: "10px" }} />
                                 Add New Question
                             </MDBBtn>  

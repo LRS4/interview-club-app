@@ -1,0 +1,16 @@
+@mixin right-ten() {
+    margin-right: 10px;
+}
+
+.badge {
+    @include right-ten();
+}
+
+.card-text {
+    @include right-ten();   
+}
+
+.actionBtn {
+    width: 25px;
+    min-width: 200px !important;
+}

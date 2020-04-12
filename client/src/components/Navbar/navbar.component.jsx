@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline
 } from "mdbreact";
@@ -19,22 +20,15 @@ export default class Navbar extends Component {
 
     render() {
         return (
-            <MDBNavbar color="indigo darken-4" dark expand="md">
+            <MDBNavbar color="elegant-color" dark expand="md">
                 <MDBNavbarBrand>
-                    <img src="/logo.png" alt="Logo for Interview Club" className="navLogoImage" />
+                    <Link to="/">
+                        <img src="/logo.png" alt="Logo for Interview Club" className="navLogoImage" />
+                    </Link>
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick={this.toggleCollapse} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
                     <MDBNavbarNav left>
-                        <MDBNavItem active>
-                            <MDBNavLink to="/">Home</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to="/">About</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to="/create">Add Question</MDBNavLink>
-                        </MDBNavItem>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
                         <MDBNavItem>
@@ -43,6 +37,9 @@ export default class Navbar extends Component {
                                 <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
                                 </div>
                             </MDBFormInline>
+                        </MDBNavItem>
+                        <MDBNavItem>
+                            <MDBNavLink to="/">About</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
                             <MDBNavLink to="/user">Sign Up</MDBNavLink>
