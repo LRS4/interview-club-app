@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
 
 // Load local environment variables if not production
 if (process.env.NODE_ENV !== 'production') { 
@@ -41,6 +42,10 @@ app.use('/users', usersRouter);
 // Deployment step
 if (process.env.NODE_ENV == 'production') {
     app.use(express.static('client/build'));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
 }
 
 // Listen on port
