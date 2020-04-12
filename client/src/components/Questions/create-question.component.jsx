@@ -50,7 +50,7 @@ export default class CreateQuestion extends Component {
         });
     }
 
-    onSubmit = (e) => {
+    onSubmit = async (e) => {
         e.preventDefault();
 
         const question = {
@@ -61,9 +61,9 @@ export default class CreateQuestion extends Component {
 
         console.log(question);
 
-        axios.post('http://localhost:5000/questions/add', question)
-            .then(result => console.log(result.data))
-            .catch(err => console.log("Error: " + err));
+        await axios.post('http://localhost:5000/questions/add', question)
+                .then(result => console.log(result.data))
+                .catch(err => console.log("Error: " + err));
 
         window.location = '/';
     }
