@@ -11,11 +11,13 @@ router.route('/add').post((req, res) => {
     const username = req.body.username;
     const text = req.body.text;
     const job = req.body.job;
-
+    const sector = req.body.sector;
+    
     const newQuestion = new Question({
         username,
         text,
-        job
+        job,
+        sector
     });
 
     newQuestion.save()

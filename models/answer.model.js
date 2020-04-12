@@ -1,19 +1,17 @@
 const mongoose = require('mongoose');
-let Answer = require('./answer.model');
 
 const Schema = mongoose.Schema;
 
-const questionSchema = new Schema({
+const answerSchema = new Schema({
     username: { type: String, required: true },
     text: { type: String, required: true },
     job: { type: String, required: true },
     sector: { type: String, required: true },
-    votes: { type: Number, required: false, default: 0 },
-    answers: { type: [Answer], required: false, default: [] }
+    votes: { type: Number, required: false, default: 0 }
 }, {
     timestamps: true
 });
 
-const Question = mongoose.model('Question', questionSchema);
+const Answer = answerSchema;
 
-module.exports = Question;
+module.exports = Answer;
