@@ -8,8 +8,9 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config() 
 }
 
+// Set port for prod or local dev
 const app = express();
-const port = process.env.port || 8080;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
