@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Question from './question-item.component';
 import axios from 'axios';
 import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon } from 'mdbreact';
+require('dotenv').config();
 
 export default class QuestionsList extends Component {
     constructor(props) {
@@ -14,7 +15,7 @@ export default class QuestionsList extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('/questions')
+        axios.get(`${process.env.REACT_APP_LOCAL_API_ENDPOINT}/questions`)
             .then(response => {
                 this.setState({
                     questions: response.data
