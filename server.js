@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const app = express();
-const port = process.env.port || 5000;
+const port = process.env.port || 8080;
 
 app.use(cors());
 app.use(express.json());
