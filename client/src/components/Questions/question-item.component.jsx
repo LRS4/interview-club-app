@@ -18,7 +18,7 @@ const Question = (props) => (
     <MDBRow>
         <MDBCol md="1" />
         <MDBCol md="10">
-            <MDBCard className="card-body text-center" style={{ width: "100%", marginTop: "10px" }}>
+            <MDBCard color="white" text="black" className="card-body text-center" style={{ width: "100%", marginTop: "10px" }}>
                 <MDBCardTitle>
                     {props.question.text}
                 </MDBCardTitle>

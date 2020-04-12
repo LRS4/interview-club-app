@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline
 } from "mdbreact";
+import './navbar.component.css'
 
 export default class Navbar extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ export default class Navbar extends Component {
         return (
             <MDBNavbar color="indigo darken-4" dark expand="md">
                 <MDBNavbarBrand>
-                    <strong className="white-text">Interview Club</strong>
+                    <img src="/logo.png" alt="Logo for Interview Club" className="navLogoImage" />
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick={this.toggleCollapse} />
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
