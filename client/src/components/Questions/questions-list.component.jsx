@@ -15,7 +15,7 @@ export default class QuestionsList extends Component {
     }
 
     componentDidMount = () => {
-        axios.get(`${process.env.REACT_APP_LOCAL_API_ENDPOINT}/questions`)
+        axios.get('/questions')
             .then(response => {
                 this.setState({
                     questions: response.data
