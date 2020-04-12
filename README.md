@@ -67,6 +67,11 @@ Axios - to send HTTP requests to API
 npm install axios
 ```
 
+Node SASS
+```
+npm install node-sass
+```
+
 ## Tools used
 
 * Postman - to test API calls
