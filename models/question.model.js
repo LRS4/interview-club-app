@@ -8,6 +8,7 @@ const questionSchema = new Schema({
     text: { type: String, required: true },
     job: { type: String, required: true },
     sector: { type: String, required: true },
+    company: { type: String, required: false },
     votes: { type: Number, required: false, default: 0 },
     answers: { type: [Answer], required: false, default: [] }
 }, {

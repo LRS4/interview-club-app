@@ -12,12 +12,14 @@ router.route('/add').post((req, res) => {
     const text = req.body.text;
     const job = req.body.job;
     const sector = req.body.sector;
+    const company = req.body.company;
     
     const newQuestion = new Question({
         username,
         text,
         job,
-        sector
+        sector,
+        company
     });
 
     newQuestion.save()
