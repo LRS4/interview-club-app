@@ -22,7 +22,6 @@ npm install
 
 Run Express server
 ```
-cd server
 nodemon server
 ```
 
@@ -49,7 +48,6 @@ npm install -g nodemon
 
 Express, Mongoose, CORS and Dotenv
 ```
-cd server
 npm install express mongoose cors dotenv
 ```
 
@@ -78,3 +76,4 @@ npm install axios
 * [Nodejs](https://github.com/nodejs/node-gyp#on-windows)
 * [nodemon](https://www.npmjs.com/package/nodemon)
 * [MDBootstrap](https://mdbootstrap.com/docs/react/getting-started/quick-start/)
+* [Deployment](https://coursework.vschool.io/deploying-mern-with-heroku/)
