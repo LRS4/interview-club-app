@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import axios from 'axios';
 import './create-question.css'
+import Sectors from './sectors.js';
 
 export default class CreateQuestion extends Component {
     constructor(props) {
@@ -15,8 +16,10 @@ export default class CreateQuestion extends Component {
             username: "",
             text: "", 
             job: "",
+            sector: "",
+            company: "",
             users: [],
-            sectors: []
+            sectors: [Sectors.sort((a, b) => a.localeCompare(b))][0]
         }
     }
 
@@ -30,7 +33,7 @@ export default class CreateQuestion extends Component {
                     })
                 }
             })
-    }
+        }
 
     onChangeUsername = (e) => {
         this.setState({
@@ -50,13 +53,27 @@ export default class CreateQuestion extends Component {
         });
     }
 
+    onChangeSector = (e) => {
+        this.setState({
+            sector: e.target.value
+        })
+    }
+
+    onChangeCompany = (e) => {
+        this.setState({
+            company: e.target.value
+        })
+    }
+
     onSubmit = async (e) => {
         e.preventDefault();
 
         const question = {
             username: this.state.username,
             text: this.state.text, 
-            job: this.state.job
+            job: this.state.job,
+            sector: this.state.sector,
+            company: this.state.company
         }
 
         console.log(question);
@@ -95,15 +112,15 @@ export default class CreateQuestion extends Component {
                             <div className="select">
                                 <select itemRef="userInput"
                                     className="select-text"
-                                    value={this.state.username}
-                                    onChange={this.onChangeUsername}
+                                    value={this.state.sector}
+                                    onChange={this.onChangeSector}
                                     required
                                 >
                                     <option value="" disabled></option>
                                 {
-                                    this.state.users.map(user => {
+                                    this.state.sectors.map((sector) => {
                                         return (
-                                            <option key={user} value={user}>{user}</option>
+                                            <option key={sector} value={sector}>{sector}</option>
                                         )
                                     })
                                 }
@@ -112,8 +129,22 @@ export default class CreateQuestion extends Component {
                                 <span className="select-bar"></span>
                                 <label className="select-label">Choose sector</label>
                             </div>
-                            <MDBInput label="User" group type="text" validate
-                                error="wrong" success="right" />
+                            <MDBInput 
+                                label="Company (Optional)" 
+                                group type="text" 
+                                validate
+                                error="wrong" 
+                                success="right"
+                                onChange={this.onChangeCompany}
+                            />
+                            <MDBInput 
+                                label="User" 
+                                group type="text" 
+                                validate
+                                error="wrong" 
+                                success="right"
+                                onChange={this.onChangeUsername}
+                            />
                         </div>
                         <div className="text-center">
                             <MDBBtn type="submit" color="primary">
