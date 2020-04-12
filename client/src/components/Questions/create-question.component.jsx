@@ -21,7 +21,7 @@ export default class CreateQuestion extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('/users')
+        axios.get(`${process.env.REACT_APP_LOCAL_API_ENDPOINT}/users`)
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -61,7 +61,7 @@ export default class CreateQuestion extends Component {
 
         console.log(question);
 
-        await axios.post('/questions/add', question)
+        await axios.post(`${process.env.REACT_APP_LOCAL_API_ENDPOINT}/questions/add`, question)
                 .then(result => console.log(result.data))
                 .catch(err => console.log("Error: " + err));
 

@@ -30,7 +30,7 @@ export default class CreateUser extends Component {
 
         console.log(user);
 
-        axios.post('/users/add', user)
+        axios.post(`${process.env.REACT_APP_LOCAL_API_ENDPOINT}/users/add`, user)
             .then(result => console.log(result.data))
             .catch(err => console.log("Error: " + err));
 
