@@ -31,6 +31,11 @@ cd client
 npm start
 ```
 
+Environment variables
+* Create .env file
+* ATLAS_URI = the MongoDB Atlas connection string
+* NODE_ENV = 'production' or 'deployment' Express settings
+
 ## Packages used
 
 Create React App, React Router
