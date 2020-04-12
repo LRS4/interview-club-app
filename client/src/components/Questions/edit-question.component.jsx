@@ -21,7 +21,7 @@ export default class EditQuestions extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('http://localhost:5000/questions/' + this.props.match.params.id)
+        axios.get('/questions/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     username: response.data.username,
@@ -33,7 +33,7 @@ export default class EditQuestions extends Component {
                 console.log(error);
             });
 
-        axios.get('http://localhost:5000/users')
+        axios.get('/users')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -72,7 +72,7 @@ export default class EditQuestions extends Component {
 
         console.log(question);
 
-        axios.put('http://localhost:5000/questions/update/' + this.props.match.params.id, question)
+        axios.put('/questions/update/' + this.props.match.params.id, question)
             .then(result => console.log(result.data))
             .catch(err => console.log("Error: " + err));
 
