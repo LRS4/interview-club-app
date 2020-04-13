@@ -84,7 +84,9 @@ export default class EditQuestions extends Component {
         const question = {
             username: this.state.username,
             text: this.state.text, 
-            job: this.state.job
+            job: this.state.job,
+            sector: this.state.sector,
+            company: this.state.company
         }
 
         console.log(question);
