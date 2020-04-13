@@ -45,6 +45,8 @@ router.route('/update/:id').put((request, response) => {
             question.username = request.body.username; 
             question.text = request.body.text;
             question.job = request.body.job;
+            question.sector = request.body.sector;
+            question.company = request.body.company;
 
             question.save()
                 .then(() => response.json('Question updated.'))
