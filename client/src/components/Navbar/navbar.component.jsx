@@ -66,7 +66,7 @@ export default class Navbar extends Component {
                             </MDBFormInline>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBNavLink to="/">About</MDBNavLink>
+                            <MDBNavLink to="/about">About</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
                             <MDBNavLink to="/user">Sign Up</MDBNavLink>

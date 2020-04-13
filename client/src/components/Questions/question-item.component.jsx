@@ -58,7 +58,7 @@ const Question = (props) => (
                                 <MDBIcon icon="list-alt"/>
                                 View { props.question.answers.length } 
                                 { 
-                                    props.question.answers.length == 1 
+                                    props.question.answers.length === 1 
                                     ? ' Answer' : ' Answers'
                                 }
                             </MDBBtn>
