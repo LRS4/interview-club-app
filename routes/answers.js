@@ -31,15 +31,17 @@ router.route('/add/:qid').post((request, response) => {
         .catch(err => response.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').get((request, response) => {
-    Question.findById(request.params.id)
-        .then(question => response.json(question))
-        .catch(err => response.status(400).json('Error: ' + err));
-});
+// Find question by qid then answer subdoc by id and delete it
+// https://mongoosejs.com/docs/subdocs.html
+router.route('/:qid/:id').delete((request, response) => {
+    Question.findById(request.params.qid)
+        .then((question) => {
+            question.answers.id(request.params.id).remove();
 
-router.route('/:id').delete((request, response) => {
-    Question.findByIdAndDelete(request.params.id)
-        .then(() => response.json('Question deleted.'))
+            question.save()
+                .then(() => response.json('Answer removed.'))
+                .catch(err => response.status(400).json('Error' + err));1
+        })
         .catch(err => response.status(400).json('Error: ' + err));
 });
 
