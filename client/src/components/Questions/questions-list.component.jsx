@@ -60,7 +60,7 @@ export default class QuestionsList extends Component {
                     <MDBCol md="4" />
                     <MDBCol md="4">
                         <Link className="text-center" to="/create">
-                            <MDBBtn className="interviewClubBtn" size="md" style={{ width: "100%" }}>
+                            <MDBBtn className="interviewClubBtn" color="pink" size="md" style={{ width: "100%" }}>
                                 <MDBIcon icon="rocket" style={{ marginRight: "10px" }} />
                                 Add New Question
                             </MDBBtn>  

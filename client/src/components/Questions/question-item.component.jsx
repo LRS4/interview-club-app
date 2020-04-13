@@ -4,6 +4,7 @@ import {
     MDBCard, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBBadge
 } from "mdbreact";
 import './question-item.component.scss';
+var moment = require('moment');
 
 /*
  * A functional React component opposed to a class based component is when you only
@@ -35,7 +36,6 @@ const Question = (props) => (
                                 icon='pen'
                                 size='1x'
                                 style={{ cursor: 'pointer', color: "#2E3B55", marginRight: "10px" }}
-                                onClick=""
                             />
                         </span>
                     </Link>
@@ -49,7 +49,7 @@ const Question = (props) => (
                     <MDBBadge>{props.question.votes} others were asked this</MDBBadge>
                 </div>
                 <MDBCardText>
-                    Added by {props.question.username}
+                    Added by {props.question.username} {moment(props.question.createdAt).fromNow()}
                 </MDBCardText>
                 <div className="flex-row">
                     <MDBBtn className="actionBtn" size="md" color="pink">
