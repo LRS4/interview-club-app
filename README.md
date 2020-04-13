@@ -67,6 +67,12 @@ Axios - to send HTTP requests to API
 npm install axios
 ```
 
+Node SASS and Moment.js
+```
+npm install node-sass
+npm install moment
+```
+
 ## Tools used
 
 * Postman - to test API calls

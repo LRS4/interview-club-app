@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import Question from './question-item.component';
 import axios from 'axios';
 import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon } from 'mdbreact';
+import './questions-list.component.scss'
 require('dotenv').config();
+var moment = require('moment');
 
 export default class QuestionsList extends Component {
     constructor(props) {
@@ -17,9 +19,15 @@ export default class QuestionsList extends Component {
     componentDidMount = () => {
         axios.get('/questions')
             .then(response => {
+                let sortedQuestions = response.data.sort((a, b) => {
+                    return (
+                        moment().diff(moment(a.createdAt), 'minutes', false) -
+                        moment().diff(moment(b.createdAt), 'minutes', false)
+                    )
+                });
                 this.setState({
-                    questions: response.data
-                })
+                    questions: sortedQuestions
+                });
             })
             .catch(error => {
                 console.log("Error: " + error);
@@ -59,7 +67,7 @@ export default class QuestionsList extends Component {
                     <MDBCol md="4" />
                     <MDBCol md="4">
                         <Link className="text-center" to="/create">
-                            <MDBBtn size="md" style={{ width: "100%" }}>
+                            <MDBBtn className="interviewClubBtn" color="pink" size="md" style={{ width: "100%" }}>
                                 <MDBIcon icon="rocket" style={{ marginRight: "10px" }} />
                                 Add New Question
                             </MDBBtn>  

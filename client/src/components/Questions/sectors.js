@@ -1,0 +1,32 @@
+const Sectors = [
+    'Accountancy and Banking',
+    'Business',
+    'Voluntary',
+    'Art and Design',
+    'Energy and Utilities',
+    'Engineering',
+    'Manufacturing',
+    'Agriculture',
+    'Healthcare',
+    'Hospitality',
+    'Events Management',
+    'Law',
+    'Law Enforcement and Security',
+    'Leisure and Tourism',
+    'Sport',
+    'Marketing, Advertising and PR',
+    'Property',
+    'Construction',
+    'Public services',
+    'Administration',
+    'Recruitment and HR',
+    'Retail',
+    'Sales',
+    'Science and Pharmaceuticals',
+    'Social Care',
+    'Teaching and Education',
+    'Transport and Logistics',
+    'Technology'
+]
+
+export default Sectors;
