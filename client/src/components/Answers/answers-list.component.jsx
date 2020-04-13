@@ -1,31 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Question from './question-item.component';
+import Answer from './answer-item.component';
 import axios from 'axios';
 import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon } from 'mdbreact';
-import './questions-list.component.scss'
+import '../Questions/questions-list.component.scss'
 var moment = require('moment');
 
-export default class QuestionsList extends Component {
+export default class AnswersList extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            questions: []
+            question: []
         }
     }
 
     componentDidMount = () => {
-        axios.get('/questions')
+        axios.get('/questions/' + this.props.match.params.qid)
             .then(response => {
-                let sortedQuestions = response.data.sort((a, b) => {
-                    return (
-                        moment().diff(moment(a.createdAt), 'minutes', false) -
-                        moment().diff(moment(b.createdAt), 'minutes', false)
-                    )
-                });
                 this.setState({
-                    questions: sortedQuestions
+                    question: response.data
                 });
             })
             .catch(error => {
@@ -33,7 +27,7 @@ export default class QuestionsList extends Component {
             });
     }
 
-    deleteQuestion = (id) => {
+    deleteAnswer = (id) => {
         axios.delete('/questions/' + id)
             .then(response => console.log(response))
 
@@ -43,20 +37,24 @@ export default class QuestionsList extends Component {
         })
     }
 
-    /* 
-    * This method will map the questions array and return a sub-component (Question)
-    * for each question in the array
-    */
-    createQuestionPanels = () => {
-        return this.state.questions.map(question => {
-            return (
-                <Question 
-                    question={question}
-                    deleteQuestion={this.deleteQuestion}
-                    key={question._id}
-                />
-            )
-        })
+    createAnswerPanels = () => {
+        if (this.state.question.answers !== undefined) {
+            let answers = this.state.question.answers.sort((a, b) => {
+                return (
+                    moment().diff(moment(a.createdAt), 'minutes', false) -
+                    moment().diff(moment(b.createdAt), 'minutes', false)
+                )
+            });
+            return answers.map(answer => {
+                return (
+                    <Answer 
+                        answer={answer}
+                        deleteAnswer={this.deleteAnswer}
+                        key={answer._id}
+                    />
+                );
+            })
+        } 
     }
 
     render() {
@@ -65,16 +63,19 @@ export default class QuestionsList extends Component {
                 <MDBRow>
                     <MDBCol md="4" />
                     <MDBCol md="4">
-                        <Link className="text-center" to="/create">
+                        <Link className="text-center" to={"/create/" + this.props.match.params.qid}>
                             <MDBBtn className="interviewClubBtn" color="pink" size="md" style={{ width: "100%" }}>
                                 <MDBIcon icon="rocket" style={{ marginRight: "10px" }} />
-                                Add New Question
+                                Add New Answer
                             </MDBBtn>  
                         </Link>  
                     </MDBCol>
                     <MDBCol md="4" />
                 </MDBRow>
-                { this.createQuestionPanels() }  
+                <MDBRow className="d-flex justify-content-center">
+                    <h1>{ this.state.question.text }</h1>
+                </MDBRow>
+                { this.createAnswerPanels() }  
             </MDBContainer>
         )
     }

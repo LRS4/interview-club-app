@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
     MDBCard, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBBadge
 } from "mdbreact";
-import './question-item.component.scss';
+import '../Questions/question-item.component.scss';
 var moment = require('moment');
 
 /*
@@ -12,11 +12,11 @@ var moment = require('moment');
  * 
  * Whereas a class based component has state and lifecycle methods.
  * 
- * This component contains props that are passed in via the questions-list component.
- * These are question, deleteQuestion (a method) and key (a unique reference for each) 
+ * This component contains props that are passed in via the answers-list component.
+ * These are answer, deleteAnswer (a method) and key (a unique reference for each) 
  */
 
-const Question = (props) => (
+const Answer = (props) => (
     <MDBRow>
         <MDBCol md="1" />
         <MDBCol md="10">
@@ -27,10 +27,10 @@ const Question = (props) => (
                             icon='trash-alt'
                             size='1x'
                             style={{ cursor: 'pointer', color: "#2E3B55" }}
-                            onClick={() => { props.deleteQuestion(props.question._id) }}
+                            onClick={() => { props.deleteAnswer(props.answer._id) }}
                         />                  
                     </span>
-                    <Link to={ "/edit/" + props.question._id} >
+                    <Link to={ "/edit/" + props.answer._id} >
                         <span className="float-right editDataBtn">
                             <MDBIcon
                                 icon='pen'
@@ -40,39 +40,21 @@ const Question = (props) => (
                         </span>
                     </Link>
                 </div>
-                <MDBCardTitle>
-                    {props.question.text}
+                <MDBCardTitle style={{ fontSize: "18px" }}>
+                    {props.answer.text}
                 </MDBCardTitle>
                 <div className="flex-row">
-                    <MDBBadge>{props.question.sector}</MDBBadge>
-                    <MDBBadge>{props.question.company}</MDBBadge>
-                    <MDBBadge>{props.question.votes} others were asked this</MDBBadge>
+                    <MDBBadge>{props.answer.sector}</MDBBadge>
+                    <MDBBadge>{props.answer.company}</MDBBadge>
+                    <MDBBadge>{props.answer.votes} votes</MDBBadge>
                 </div>
                 <MDBCardText>
-                    Added by {props.question.username} {moment(props.question.createdAt).fromNow()}
+                    Added by {props.answer.username} {moment(props.answer.createdAt).fromNow()}
                 </MDBCardText>
                 <div className="flex-row">
-                    {props.question.answers.length > 0 &&
-                        <Link to={ "/answers/" + props.question._id} >
-                            <MDBBtn className="actionBtn" size="md" color="pink">
-                                <MDBIcon icon="list-alt"/>
-                                View { props.question.answers.length } 
-                                { 
-                                    props.question.answers.length === 1 
-                                    ? ' Answer' : ' Answers'
-                                }
-                            </MDBBtn>
-                        </Link>
-                    }
-                    <Link to={ "/create/" + props.question._id} question={props.question.text}>
-                        <MDBBtn className="actionBtn" size="md" color="pink">
-                            <MDBIcon icon="plus" />
-                            Add an answer
-                        </MDBBtn>
-                    </Link>
                     <MDBBtn className="actionBtn" size="md" color="pink">
                         <MDBIcon icon="thumbs-up" />
-                        I was asked this too!
+                        This answer helped!
                     </MDBBtn>
                 </div>
             </MDBCard>
@@ -81,4 +63,4 @@ const Question = (props) => (
     </MDBRow>
 )
 
-export default Question;
+export default Answer;
