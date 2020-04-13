@@ -35,10 +35,12 @@ mongoose.connection.on('error', err => console.log(err)); // checks for errors
 
 // Import defined routes
 const questionsRouter = require('./routes/questions');
+const answersRouter = require('./routes/answers');
 const usersRouter = require('./routes/users');
 
 // Use defined routes
 app.use('/questions', questionsRouter);
+app.use('/answers', answersRouter);
 app.use('/users', usersRouter);
 
 // Deployment step
