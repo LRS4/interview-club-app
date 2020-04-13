@@ -39,7 +39,13 @@ export default class AnswersList extends Component {
 
     createAnswerPanels = () => {
         if (this.state.question.answers !== undefined) {
-            return this.state.question.answers.map(answer => {
+            let answers = this.state.question.answers.sort((a, b) => {
+                return (
+                    moment().diff(moment(a.createdAt), 'minutes', false) -
+                    moment().diff(moment(b.createdAt), 'minutes', false)
+                )
+            });
+            return answers.map(answer => {
                 return (
                     <Answer 
                         answer={answer}
@@ -57,7 +63,7 @@ export default class AnswersList extends Component {
                 <MDBRow>
                     <MDBCol md="4" />
                     <MDBCol md="4">
-                        <Link className="text-center" to="/create">
+                        <Link className="text-center" to={"/create/" + this.props.match.params.qid}>
                             <MDBBtn className="interviewClubBtn" color="pink" size="md" style={{ width: "100%" }}>
                                 <MDBIcon icon="rocket" style={{ marginRight: "10px" }} />
                                 Add New Answer

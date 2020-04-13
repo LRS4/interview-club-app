@@ -40,29 +40,21 @@ const Answer = (props) => (
                         </span>
                     </Link>
                 </div>
-                <MDBCardTitle>
+                <MDBCardTitle style={{ fontSize: "18px" }}>
                     {props.answer.text}
                 </MDBCardTitle>
                 <div className="flex-row">
                     <MDBBadge>{props.answer.sector}</MDBBadge>
                     <MDBBadge>{props.answer.company}</MDBBadge>
-                    <MDBBadge>{props.answer.votes} </MDBBadge>
+                    <MDBBadge>{props.answer.votes} votes</MDBBadge>
                 </div>
                 <MDBCardText>
                     Added by {props.answer.username} {moment(props.answer.createdAt).fromNow()}
                 </MDBCardText>
                 <div className="flex-row">
                     <MDBBtn className="actionBtn" size="md" color="pink">
-                        <MDBIcon icon="list-alt"/>
-                        View 12 Answers
-                    </MDBBtn>
-                    <MDBBtn className="actionBtn" size="md" color="pink">
-                        <MDBIcon icon="plus" />
-                        Add an answer
-                    </MDBBtn>
-                    <MDBBtn className="actionBtn" size="md" color="pink">
                         <MDBIcon icon="thumbs-up" />
-                        I was asked this too!
+                        This answer helped!
                     </MDBBtn>
                 </div>
             </MDBCard>

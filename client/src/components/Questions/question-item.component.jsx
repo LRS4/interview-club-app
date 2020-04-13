@@ -64,10 +64,12 @@ const Question = (props) => (
                             </MDBBtn>
                         </Link>
                     }
-                    <MDBBtn className="actionBtn" size="md" color="pink">
-                        <MDBIcon icon="plus" />
-                        Add an answer
-                    </MDBBtn>
+                    <Link to={ "/create/" + props.question._id} question={props.question.text}>
+                        <MDBBtn className="actionBtn" size="md" color="pink">
+                            <MDBIcon icon="plus" />
+                            Add an answer
+                        </MDBBtn>
+                    </Link>
                     <MDBBtn className="actionBtn" size="md" color="pink">
                         <MDBIcon icon="thumbs-up" />
                         I was asked this too!
