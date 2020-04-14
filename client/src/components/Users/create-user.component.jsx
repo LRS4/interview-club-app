@@ -102,7 +102,7 @@ export default class CreateUser extends Component {
                             />
                         </div>
                         <div className="text-center">
-                            <MDBBtn type="submit" color="primary">Register</MDBBtn>
+                            <MDBBtn type="submit" className="interviewClubBtn" color="pink">Register</MDBBtn>
                         </div>
                     </form>
                     </MDBCol>
