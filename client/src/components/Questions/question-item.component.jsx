@@ -44,6 +44,7 @@ const Question = (props) => (
                     {props.question.text}
                 </MDBCardTitle>
                 <div className="flex-row">
+                    <MDBBadge>{props.question.job}</MDBBadge>
                     <MDBBadge>{props.question.sector}</MDBBadge>
                     <MDBBadge>{props.question.company}</MDBBadge>
                     <MDBBadge>{props.question.votes} others were asked this</MDBBadge>

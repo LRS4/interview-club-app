@@ -127,7 +127,16 @@ export default class QuestionsList extends Component {
                             >
                                 <option value="" disabled></option>
                                 <option value="all">All</option>
-                                <option value="Technology">Technology</option>
+                                {
+                                    [...new Set(this.state.questions.map(q => q.sector))]
+                                    .map(sector => {
+                                        return (
+                                            <option key={sector} value={sector}>
+                                                {sector}
+                                            </option>
+                                        )
+                                    })
+                                }
                                 <option value="recent">Sort by most recent</option>
                                 <option value="top-voted">Sort by top voted</option>
                             </select>
