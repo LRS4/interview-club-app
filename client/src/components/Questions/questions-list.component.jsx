@@ -81,11 +81,13 @@ export default class QuestionsList extends Component {
         }
 
         if (this.state.search !== "") {
-            questions.filter(question => (
-                question.text.toLowerCase().includes(this.state.search) ||
-                question.job.toLowerCase().includes(this.state.search) ||
-                question.company.toLowerCase().includes(this.state.search)
-            ));
+            questions = (
+                questions.filter(question => (
+                    question.text.toLowerCase().includes(this.state.search) ||
+                    question.job.toLowerCase().includes(this.state.search) ||
+                    question.company.toLowerCase().includes(this.state.search)
+                ))
+            )
         } 
 
         return questions.map(question => {

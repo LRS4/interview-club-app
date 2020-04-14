@@ -33,39 +33,6 @@ export default class Navbar extends Component {
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
                         <MDBNavItem>
-                            <MDBDropdown>
-                                <MDBDropdownToggle nav caret>
-                                    <span className="mr-2">Sectors</span>
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu>
-                                    <MDBDropdownItem href="#!">Most Recent</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Most Asked</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Technology</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Retail</MDBDropdownItem>
-                                </MDBDropdownMenu>
-                            </MDBDropdown>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBDropdown>
-                                <MDBDropdownToggle nav caret>
-                                    <span className="mr-2">Filters</span>
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu>
-                                    <MDBDropdownItem href="#!">Most Recent</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Most Asked</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Technology</MDBDropdownItem>
-                                    <MDBDropdownItem href="#!">Retail</MDBDropdownItem>
-                                </MDBDropdownMenu>
-                            </MDBDropdown>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBFormInline waves>
-                                <div className="md-form my-0">
-                                    <input className="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search" />
-                                </div>
-                            </MDBFormInline>
-                        </MDBNavItem>
-                        <MDBNavItem>
                             <MDBNavLink to="/about">About</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
