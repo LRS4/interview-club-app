@@ -8,7 +8,8 @@ const answerSchema = new Schema({
     job: { type: String, required: true },
     sector: { type: String, required: true },
     company: { type: String, required: false },
-    votes: { type: Number, required: false, default: 0 }
+    votes: { type: Number, required: false, default: 0 },
+    voters: { type: [mongoose.ObjectId], required: false, default: []}
 }, {
     timestamps: true
 });
