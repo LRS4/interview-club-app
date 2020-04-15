@@ -96,10 +96,12 @@ export default class CreateQuestion extends Component {
                         <div className="grey-text">
                             <MDBInput 
                                 type="textarea" 
-                                label="What was the question?" 
+                                label="What was the question? 300 character limit" 
                                 rows="5" 
                                 onChange={this.onChangeText}
                                 value={this.state.text}
+                                required
+                                maxlength="300"
                             />
                             <MDBInput 
                                 label="What was the job?" 
@@ -108,6 +110,8 @@ export default class CreateQuestion extends Component {
                                 success="right" 
                                 onChange={this.onChangeJob}
                                 value={this.state.job}
+                                required
+                                maxlength="60"
                             />
                             <div className="select">
                                 <select itemRef="userInput"
