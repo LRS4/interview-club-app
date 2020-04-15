@@ -74,6 +74,8 @@ export default class QuestionsList extends Component {
                     moment().diff(moment(b.createdAt), 'minutes', false)
                 )
             });
+        } else if (this.state.filter.includes("answers")) {
+            questions = this.state.questions.sort((a, b) => b.answers.length - a.answers.length);
         } else if (this.state.filter === "all" || this.state.filter === "") {
             questions = this.state.questions;
         } else {
@@ -139,6 +141,7 @@ export default class QuestionsList extends Component {
                                 }
                                 <option value="recent">Sort by most recent</option>
                                 <option value="top-voted">Sort by top voted</option>
+                                <option value="most-answers">Sort by most answers</option>
                             </select>
                             <span className="filter-highlight"></span>
                             <span className="filter-bar"></span>
