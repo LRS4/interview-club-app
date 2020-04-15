@@ -10,6 +10,7 @@ const questionSchema = new Schema({
     sector: { type: String, required: true },
     company: { type: String, required: false },
     votes: { type: Number, required: false, default: 0 },
+    voters:  { type: [mongoose.ObjectId], required: false, default: [] },
     answers: { type: [Answer], required: false, default: [] }
 }, {
     timestamps: true

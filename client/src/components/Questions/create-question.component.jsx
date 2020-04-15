@@ -151,7 +151,7 @@ export default class CreateQuestion extends Component {
                             />
                         </div>
                         <div className="text-center">
-                            <MDBBtn className="interviewClubBtn" type="submit" color="primary">
+                            <MDBBtn className="interviewClubBtn" type="submit" color="pink">
                                 Submit
                             </MDBBtn>
                         </div>
