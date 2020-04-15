@@ -8,6 +8,7 @@ import CreateQuestion from './components/Questions/create-question.component.jsx
 import AnswersList from './components/Answers/answers-list.component.jsx';
 import CreateAnswer from './components/Answers/create-answer.component.jsx';
 import CreateUser from './components/Users/create-user.component.jsx';
+import SignIn from './components/Users/log-in.component.jsx';
 import PageNotFound from './components/Other/page-not-found.component.jsx';
 // import logo from './logo.svg';
 // import './App.css';
@@ -25,6 +26,7 @@ function App() {
         <Route path='/answers/:qid' exact component={AnswersList} />
         <Route path='/create/:qid' exact component={CreateAnswer} />
         <Route path='/user' exact component={CreateUser} />
+        <Route path='/login' exact component={SignIn} />
         <Route component={PageNotFound}></Route>
       </Switch>
     </Router>

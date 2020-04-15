@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse
 } from "mdbreact";
-import './navbar.component.css'
+import './navbar.component.css';
 
 export default class Navbar extends Component {
     constructor(props) {
@@ -36,6 +36,9 @@ export default class Navbar extends Component {
                         </MDBNavItem>
                         <MDBNavItem>
                             <MDBNavLink to="/user">Sign Up</MDBNavLink>
+                        </MDBNavItem>
+                        <MDBNavItem>
+                            <MDBNavLink to="/login">Log In</MDBNavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>
                 </MDBCollapse>
