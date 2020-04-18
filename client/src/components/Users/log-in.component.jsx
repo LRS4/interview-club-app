@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import axios from 'axios';
 
-export default class CreateUser extends Component {
+export default class SignIn extends Component {
     constructor(props) {
         super(props);
 
@@ -52,7 +52,7 @@ export default class CreateUser extends Component {
                     <MDBCol md="3" />
                     <MDBCol md="6">
                     <form onSubmit={this.onSubmit}>
-                        <p className="h5 text-center mb-4">Sign up</p>
+                        <p className="h5 text-center mb-4">Welcome back!</p>
                         <div className="grey-text">
                             <MDBInput 
                                 label="Your username" 
@@ -64,26 +64,6 @@ export default class CreateUser extends Component {
                                 onChange={this.onChangeUsername}
                             />
                             <MDBInput 
-                                label="Your email" 
-                                icon="envelope" 
-                                group type="email" 
-                                validate error="wrong"
-                                success="right" 
-                                value={this.state.email}
-                                // setting state inline
-                                onChange={(e) => {this.setState({email: e.target.value})}}
-                            />
-                            <MDBInput 
-                                label="Confirm your email" 
-                                icon="exclamation-triangle" 
-                                group type="text" 
-                                validate
-                                error="wrong" 
-                                success="right" 
-                                value={this.state.confirmEmail}
-                                onChange={(e) => {this.setState({confirmEmail: e.target.value})}}
-                            />
-                            <MDBInput 
                                 label="Your password" 
                                 icon="lock" 
                                 group type="password" 
@@ -91,19 +71,9 @@ export default class CreateUser extends Component {
                                 value={this.state.password}
                                 onChange={(e) => {this.setState({password: e.target.value})}}
                             />
-                            <MDBInput 
-                                label="Confirm your password" 
-                                icon="exclamation-triangle" 
-                                group type="password" 
-                                validate
-                                error="wrong" 
-                                success="right" 
-                                value={this.state.confirmPassword}
-                                onChange={(e) => {this.setState({confirmPassword: e.target.value})}}
-                            />
                         </div>
                         <div className="text-center">
-                            <MDBBtn type="submit" className="interviewClubBtn" color="pink">Register</MDBBtn>
+                            <MDBBtn type="submit" className="interviewClubBtn" color="pink">Log In</MDBBtn>
                         </div>
                     </form>
                     </MDBCol>

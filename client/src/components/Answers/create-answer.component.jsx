@@ -108,10 +108,12 @@ export default class CreateAnswer extends Component {
                         <div className="grey-text">
                             <MDBInput 
                                 type="textarea" 
-                                label="What was your answer? 300 word limit" 
+                                label="What was your answer? 2500 character limit" 
                                 rows="5" 
                                 onChange={this.onChangeText}
                                 value={this.state.text}
+                                required
+                                maxlength="2500"
                             />
                             <MDBInput 
                                 label="What was the job?" 
@@ -119,6 +121,8 @@ export default class CreateAnswer extends Component {
                                 validate error="wrong"
                                 success="right" 
                                 onChange={this.onChangeJob}
+                                required
+                                maxlength="60"
                                 value={this.state.job}
                             />
                             <div className="select">
@@ -148,6 +152,7 @@ export default class CreateAnswer extends Component {
                                 error="wrong" 
                                 success="right"
                                 onChange={this.onChangeCompany}
+                                maxlength="40"
                             />
                             <MDBInput 
                                 label="User" 
@@ -156,10 +161,11 @@ export default class CreateAnswer extends Component {
                                 error="wrong" 
                                 success="right"
                                 onChange={this.onChangeUsername}
+                                required
                             />
                         </div>
                         <div className="text-center">
-                            <MDBBtn type="submit" color="primary">
+                            <MDBBtn type="submit" className="interviewClubBtn" color="pink">
                                 Submit
                             </MDBBtn>
                         </div>

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Question from './question-item.component';
 import axios from 'axios';
-import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon } from 'mdbreact';
-import './questions-list.component.scss'
+import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
+import './questions-list.component.scss';
+import './questions-filter.component.css';
 var moment = require('moment');
 
 export default class QuestionsList extends Component {
@@ -11,7 +12,9 @@ export default class QuestionsList extends Component {
         super(props);
 
         this.state = {
-            questions: []
+            questions: [],
+            filter: "",
+            search: ""
         }
     }
 
@@ -43,12 +46,53 @@ export default class QuestionsList extends Component {
         })
     }
 
+    onChangeSearch = (e) => {
+        this.setState({
+            search: e.target.value.toLowerCase()
+        });
+    };
+
+    onChangeFilter = (e) => {
+        this.setState({
+            filter: e.target.value
+        })
+    };
+
     /* 
     * This method will map the questions array and return a sub-component (Question)
     * for each question in the array
     */
     createQuestionPanels = () => {
-        return this.state.questions.map(question => {
+        let questions;
+
+        if (this.state.filter.includes("voted")) {
+            questions = this.state.questions.sort((a, b) => a.votes - b.votes);
+        } else if (this.state.filter.includes("recent")) {
+            questions = this.state.questions.sort((a, b) => {
+                return (
+                    moment().diff(moment(a.createdAt), 'minutes', false) -
+                    moment().diff(moment(b.createdAt), 'minutes', false)
+                )
+            });
+        } else if (this.state.filter.includes("answers")) {
+            questions = this.state.questions.sort((a, b) => b.answers.length - a.answers.length);
+        } else if (this.state.filter === "all" || this.state.filter === "") {
+            questions = this.state.questions;
+        } else {
+            questions = this.state.questions.filter(question => question.sector === this.state.filter);
+        }
+
+        if (this.state.search !== "") {
+            questions = (
+                questions.filter(question => (
+                    question.text.toLowerCase().includes(this.state.search) ||
+                    question.job.toLowerCase().includes(this.state.search) ||
+                    question.company.toLowerCase().includes(this.state.search)
+                ))
+            )
+        } 
+
+        return questions.map(question => {
             return (
                 <Question 
                     question={question}
@@ -56,14 +100,17 @@ export default class QuestionsList extends Component {
                     key={question._id}
                 />
             )
-        })
+        });
     }
 
     render() {
         return (
             <MDBContainer>
                 <MDBRow>
-                    <MDBCol md="4" />
+                    <MDBCol md="1" />
+                    <MDBCol md="3">
+                        <MDBInput hint="Search" onChange={this.onChangeSearch} type="text" containerClass="mt-0" />
+                    </MDBCol>
                     <MDBCol md="4">
                         <Link className="text-center" to="/create">
                             <MDBBtn className="interviewClubBtn" color="pink" size="md" style={{ width: "100%" }}>
@@ -72,7 +119,36 @@ export default class QuestionsList extends Component {
                             </MDBBtn>  
                         </Link>  
                     </MDBCol>
-                    <MDBCol md="4" />
+                    <MDBCol md="3">
+                        <div className="filter">
+                            <select itemRef="userInput"
+                                className="filter-text"
+                                value={this.state.filter}
+                                onChange={this.onChangeFilter}
+                                required
+                            >
+                                <option value="" disabled></option>
+                                <option value="all">All</option>
+                                {
+                                    [...new Set(this.state.questions.map(q => q.sector))]
+                                    .map(sector => {
+                                        return (
+                                            <option key={sector} value={sector}>
+                                                {sector}
+                                            </option>
+                                        )
+                                    })
+                                }
+                                <option value="recent">Sort by most recent</option>
+                                <option value="top-voted">Sort by top voted</option>
+                                <option value="most-answers">Sort by most answers</option>
+                            </select>
+                            <span className="filter-highlight"></span>
+                            <span className="filter-bar"></span>
+                            <label className="filter-label">Filter | Sort</label>
+                        </div>
+                    </MDBCol>
+                    <MDBCol md="1" />
                 </MDBRow>
                 { this.createQuestionPanels() }  
             </MDBContainer>

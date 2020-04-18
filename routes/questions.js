@@ -55,4 +55,20 @@ router.route('/update/:id').put((request, response) => {
         .catch(err => response.status(400).json('Error: ' + err));
 });
 
+router.route('/vote/:id/:uid').put((request, response) => {
+    Question.findById(request.params.id)
+        .then(question => {
+            if (question.voters.some(voter => voter == request.params.uid)) {
+                return response.json('User already voted.');
+            } else {
+                question.votes = question.votes + 1;
+                question.voters.push(request.params.uid);
+            }
+
+            question.save()
+                .then(() => response.json('Question vote counted.'))
+                .catch(err => res.status(400).json('Error: '+ err));
+        });
+});
+
 module.exports = router;

@@ -72,4 +72,23 @@ router.route('/update/:qid/:id').put((request, response) => {
         .catch(err => response.status(400).json('Error: ' + err));
 });
 
+// Vote for an answer
+router.route('/vote/:qid/:id/:uid').put((request, response) => {
+    Question.findById(request.params.qid)
+        .then(question => {
+            let answer = question.answers.id(request.params.id);
+
+            if (answer.voters.some(voter => voter == request.params.uid)) {
+                return response.json('User already voted.');
+            } else {
+                answer.votes = answer.votes + 1;
+                answer.voters.push(request.params.uid);
+            }
+
+            question.save()
+                .then(() => response.json('Answer vote counted.'))
+                .catch(err => res.status(400).json('Error: '+ err));
+        });
+});
+
 module.exports = router;
