@@ -34,6 +34,21 @@ const questionsReducer = (state = initialState, action) => {
                 ...state,
                 questions: [...state.questions].filter(question => question._id !== action.questionId)
             }
+        case 'UPDATE_QUESTION':
+            return {
+                ...state,
+                questions: [...state.questions].map(question => (
+                    question._id === action.id 
+                    ? {
+                        ...question,
+                        text: action.question.text,
+                        job: action.question.job,
+                        sector: action.question.sector,
+                        company: action.question.company
+                    } 
+                    : question
+                ))
+            }
         default:
             return state;
     }

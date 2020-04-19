@@ -50,8 +50,13 @@ export function removeQuestion(questionId) {
     }
 }
 
-export function updateQuestion(questionId) {
+export function updateQuestion(id, question) {
     return (dispatch) => {
-        // api call 
+        axios.put('/questions/update/' + id, question)
+            .then(result => {
+                console.log(result.data);
+                dispatch({ type: UPDATE_QUESTION, id, question });
+            })
+            .catch(err => console.log("Error: " + err)); 
     }
 }

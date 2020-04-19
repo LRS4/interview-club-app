@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateQuestion } from './../../actions/questionsActions';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import axios from 'axios';
 import './create-question.css';
 import Sectors from './sectors';
 
-export default class EditQuestions extends Component {
+class EditQuestions extends Component {
     constructor(props) {
         super(props);
 
@@ -13,31 +15,17 @@ export default class EditQuestions extends Component {
         // this.onChangeUsername = this.onChangeUsername.bind(this);
 
         this.state = {
-            username: "",
-            text: "", 
-            job: "",
-            sector: "",
-            company: "",
+            username: this.props.question ? String(this.props.question.username) : "",
+            text: this.props.question ? String(this.props.question.text) : "", 
+            job: this.props.question ? String(this.props.question.job) : "",
+            sector: this.props.question ? String(this.props.question.sector) : "",
+            company: this.props.question ? String(this.props.question.company) : "",
             users: [],
             sectors: [Sectors.sort((a, b) => a.localeCompare(b))][0]
         }
     }
 
     componentDidMount = () => {
-        axios.get('/questions/' + this.props.match.params.id)
-            .then(response => {
-                this.setState({
-                    username: response.data.username,
-                    text: response.data.text,
-                    job: response.data.job,
-                    sector: response.data.sector,
-                    company: response.data.company
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
         axios.get('/users')
             .then(response => {
                 if (response.data.length > 0) {
@@ -91,11 +79,12 @@ export default class EditQuestions extends Component {
 
         console.log(question);
 
-        axios.put('/questions/update/' + this.props.match.params.id, question)
-            .then(result => console.log(result.data))
-            .catch(err => console.log("Error: " + err));
+        this.props.updateQuestion(
+            this.props.question._id,
+            question
+        );
 
-        window.location = '/';
+        this.props.history.push('/');
     }
 
     render() {
@@ -162,7 +151,7 @@ export default class EditQuestions extends Component {
                             />
                         </div>
                         <div className="text-center">
-                            <MDBBtn type="submit" color="primary">
+                            <MDBBtn className="interviewClubBtn" type="submit" color="pink">
                                 Save Changes
                             </MDBBtn>
                         </div>
@@ -174,3 +163,18 @@ export default class EditQuestions extends Component {
         )
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    let id = String(ownProps.match.params.id);
+    return {
+        question: state.questions.questions.find(question => question._id === id)
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        updateQuestion: (id, question) => dispatch(updateQuestion(id, question))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditQuestions);
