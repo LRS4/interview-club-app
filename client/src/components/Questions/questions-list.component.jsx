@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Question from './question-item.component';
 import axios from 'axios';
 import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
@@ -7,7 +8,7 @@ import './questions-list.component.scss';
 import './questions-filter.component.css';
 var moment = require('moment');
 
-export default class QuestionsList extends Component {
+class QuestionsList extends Component {
     constructor(props) {
         super(props);
 
@@ -66,20 +67,20 @@ export default class QuestionsList extends Component {
         let questions;
 
         if (this.state.filter.includes("voted")) {
-            questions = this.state.questions.sort((a, b) => a.votes - b.votes);
+            questions = this.props.questions.sort((a, b) => a.votes - b.votes);
         } else if (this.state.filter.includes("recent")) {
-            questions = this.state.questions.sort((a, b) => {
+            questions = this.props.questions.sort((a, b) => {
                 return (
                     moment().diff(moment(a.createdAt), 'minutes', false) -
                     moment().diff(moment(b.createdAt), 'minutes', false)
                 )
             });
         } else if (this.state.filter.includes("answers")) {
-            questions = this.state.questions.sort((a, b) => b.answers.length - a.answers.length);
+            questions = this.props.questions.sort((a, b) => b.answers.length - a.answers.length);
         } else if (this.state.filter === "all" || this.state.filter === "") {
-            questions = this.state.questions;
+            questions = this.props.questions;
         } else {
-            questions = this.state.questions.filter(question => question.sector === this.state.filter);
+            questions = this.props.questions.filter(question => question.sector === this.state.filter);
         }
 
         if (this.state.search !== "") {
@@ -130,7 +131,7 @@ export default class QuestionsList extends Component {
                                 <option value="" disabled></option>
                                 <option value="all">All</option>
                                 {
-                                    [...new Set(this.state.questions.map(q => q.sector))]
+                                    [...new Set(this.props.questions.map(q => q.sector))]
                                     .map(sector => {
                                         return (
                                             <option key={sector} value={sector}>
@@ -155,3 +156,11 @@ export default class QuestionsList extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        questions: state.questions.questions
+    }
+}
+
+export default connect(mapStateToProps)(QuestionsList);
