@@ -78,8 +78,6 @@ class CreateQuestion extends Component {
             company: this.state.company
         }
 
-        console.log(question);
-
         this.props.addQuestion(question);
 
         // Moved to redux action creator
@@ -87,7 +85,7 @@ class CreateQuestion extends Component {
         //         .then(result => console.log(result.data))
         //         .catch(err => console.log("Error: " + err));
 
-        window.location = '/';
+        this.props.history.push('/');
     }
 
     render() {

@@ -28,14 +28,19 @@ export function getAllQuestions() {
 }
 
 export function addQuestion(question) {
-    return (dispatch, getState) => {
-        // make call to api
-        dispatch({ type: ADD_QUESTION, question });
+    return (dispatch) => {
+        axios.post('/questions/add', question)
+            .then(result => {
+                console.log(result.data);
+                dispatch({ type: ADD_QUESTION, question: result.data });
+            })
+            .catch(err => console.log("Error: " + err));
     };
 }
 
 export function removeQuestion(question) {
     return {
+        // add api call
         type: REMOVE_QUESTION,
         question
     };

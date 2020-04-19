@@ -1,17 +1,4 @@
-// const testState = {
-//     questions: [{
-//         _id: '5e962cfc12fc9c474c9a8d86',
-//         text: 'Hello',
-//         username: 'Lewis',
-//         job: 'Job',
-//         sector: 'Manufacturing', 
-//         answers: [],
-//         votes: 5,
-//         voters: [],
-//         createdAt: "2020-04-14T21:37:00.368Z",
-//         updatedAt: "2020-04-14T21:37:52.276Z"
-//     }]
-// };
+var moment = require('moment');
 
 const initialState = {
     error: null,
@@ -40,11 +27,34 @@ const questionsReducer = (state = initialState, action) => {
                 error: action.error
             }
         case 'ADD_QUESTION':
-            console.log('created question', action.question);
-            return state;
+            return {
+                ...state,
+                questions: [...state.questions, action.question].sort((a, b) => {
+                    return (
+                        moment().diff(moment(a.createdAt), 'minutes', false) -
+                        moment().diff(moment(b.createdAt), 'minutes', false)
+                    )
+                })
+            }
         default:
             return state;
     }
 }
 
 export default questionsReducer;
+
+
+// const testState = {
+//     questions: [{
+//         _id: '5e962cfc12fc9c474c9a8d86',
+//         text: 'Hello',
+//         username: 'Lewis',
+//         job: 'Job',
+//         sector: 'Manufacturing', 
+//         answers: [],
+//         votes: 5,
+//         voters: [],
+//         createdAt: "2020-04-14T21:37:00.368Z",
+//         updatedAt: "2020-04-14T21:37:52.276Z"
+//     }]
+// };
