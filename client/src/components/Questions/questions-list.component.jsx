@@ -113,6 +113,17 @@ class QuestionsList extends Component {
             </MDBContainer>
         );
 
+        const error = (
+            <div>
+            <MDBContainer className="d-flex justify-content-center" style={{ marginTop: "50px" }}>
+                <MDBIcon size="3x" icon="exclamation-triangle" className="pink-text"/>   
+            </MDBContainer> 
+            <MDBContainer className="text-center" style={{ marginTop: "50px" }}>
+                <p>Sorry something went wrong... Please try refreshing the page.</p>   
+            </MDBContainer>  
+            </div>  
+        )
+
         return (
             <MDBContainer>
                 <MDBRow>
@@ -160,7 +171,9 @@ class QuestionsList extends Component {
                     <MDBCol md="1" />
                 </MDBRow>
                 {
-                    this.props.fetching
+                    this.props.error != null
+                    ? error
+                    : this.props.fetching
                     ? spinner
                     : this.createQuestionPanels() 
                 }  
@@ -172,7 +185,8 @@ class QuestionsList extends Component {
 const mapStateToProps = (state) => {
     return {
         questions: state.questions.questions,
-        fetching: state.questions.fetching
+        fetching: state.questions.fetching,
+        error: state.questions.error
     }
 }
 

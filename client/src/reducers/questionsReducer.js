@@ -33,7 +33,7 @@ const questionsReducer = (state = initialState, action) => {
                 fetching: false,
                 questions: action.questions
             }
-        case 'ERROR_REQUESTING_QUESTIONS':
+        case 'REQUESTING_QUESTIONS_ERROR':
             return {
                 ...state,
                 fetching: false,

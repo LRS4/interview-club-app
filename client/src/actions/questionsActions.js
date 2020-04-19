@@ -21,8 +21,8 @@ export function getAllQuestions() {
             dispatch({ type: RECEIVED_QUESTIONS, questions: sortedQuestions });
 		})
 		.catch(error => {
-            console.log("Error: " + error);
-            dispatch({ type: REQUESTING_QUESTIONS_ERROR, error });
+            let message = String(error);
+            dispatch({ type: REQUESTING_QUESTIONS_ERROR, error: message });
 		});
     }
 }

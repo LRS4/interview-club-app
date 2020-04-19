@@ -3,8 +3,10 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import axios from 'axios';
 import './create-question.css'
 import Sectors from './sectors.js';
+import { connect } from 'react-redux';
+import { addQuestion } from './../../actions/questionsActions';
 
-export default class CreateQuestion extends Component {
+class CreateQuestion extends Component {
     constructor(props) {
         super(props);
 
@@ -65,7 +67,7 @@ export default class CreateQuestion extends Component {
         })
     }
 
-    onSubmit = async (e) => {
+    onSubmit = (e) => {
         e.preventDefault();
 
         const question = {
@@ -78,9 +80,12 @@ export default class CreateQuestion extends Component {
 
         console.log(question);
 
-        await axios.post('/questions/add', question)
-                .then(result => console.log(result.data))
-                .catch(err => console.log("Error: " + err));
+        this.props.addQuestion(question);
+
+        // Moved to redux action creator
+        // await axios.post('/questions/add', question)
+        //         .then(result => console.log(result.data))
+        //         .catch(err => console.log("Error: " + err));
 
         window.location = '/';
     }
@@ -101,7 +106,7 @@ export default class CreateQuestion extends Component {
                                 onChange={this.onChangeText}
                                 value={this.state.text}
                                 required
-                                maxlength="300"
+                                maxLength="300"
                             />
                             <MDBInput 
                                 label="What was the job?" 
@@ -111,7 +116,7 @@ export default class CreateQuestion extends Component {
                                 onChange={this.onChangeJob}
                                 value={this.state.job}
                                 required
-                                maxlength="60"
+                                maxLength="60"
                             />
                             <div className="select">
                                 <select itemRef="userInput"
@@ -163,3 +168,11 @@ export default class CreateQuestion extends Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addQuestion: (question) => dispatch(addQuestion(question))
+    };
+}
+
+export default connect(null, mapDispatchToProps)(CreateQuestion);
