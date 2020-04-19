@@ -8,6 +8,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './store';
+import { getAllQuestions } from './actions/questionsActions';
+
+// Initial get all questions dispatch
+store.dispatch(getAllQuestions());
 
 ReactDOM.render(
   <React.StrictMode>
