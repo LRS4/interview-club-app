@@ -6,6 +6,7 @@ const REQUESTING_QUESTIONS_ERROR = 'REQUESTING_QUESTIONS_ERROR';
 const RECEIVED_QUESTIONS = 'RECEIVED_QUESTIONS';
 const ADD_QUESTION = 'ADD_QUESTION';
 const REMOVE_QUESTION = 'REMOVE_QUESTION';
+const UPDATE_QUESTION = 'UPDATE_QUESTION';
 
 export function getAllQuestions() {
     return (dispatch, getState) => {
@@ -38,10 +39,19 @@ export function addQuestion(question) {
     };
 }
 
-export function removeQuestion(question) {
-    return {
-        // add api call
-        type: REMOVE_QUESTION,
-        question
-    };
+export function removeQuestion(questionId) {
+    return (dispatch) => {
+        axios.delete('/questions/' + questionId)
+            .then(response => {
+                console.log(response);
+                dispatch({ type: REMOVE_QUESTION, questionId});
+            })
+            .catch(err => console.log(err));
+    }
+}
+
+export function updateQuestion(questionId) {
+    return (dispatch) => {
+        // api call 
+    }
 }

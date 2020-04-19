@@ -1,5 +1,3 @@
-var moment = require('moment');
-
 const initialState = {
     error: null,
     fetching: true,
@@ -29,12 +27,12 @@ const questionsReducer = (state = initialState, action) => {
         case 'ADD_QUESTION':
             return {
                 ...state,
-                questions: [...state.questions, action.question].sort((a, b) => {
-                    return (
-                        moment().diff(moment(a.createdAt), 'minutes', false) -
-                        moment().diff(moment(b.createdAt), 'minutes', false)
-                    )
-                })
+                questions: [action.question, ...state.questions]
+            }
+        case 'REMOVE_QUESTION':
+            return {
+                ...state,
+                questions: [...state.questions].filter(question => question._id !== action.questionId)
             }
         default:
             return state;
