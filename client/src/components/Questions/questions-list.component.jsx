@@ -105,6 +105,14 @@ class QuestionsList extends Component {
     }
 
     render() {
+        const spinner = (
+            <MDBContainer className="d-flex justify-content-center" style={{ marginTop: "50px" }}>
+                <div className="spinner-border pink-text" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </MDBContainer>
+        );
+
         return (
             <MDBContainer>
                 <MDBRow>
@@ -151,7 +159,11 @@ class QuestionsList extends Component {
                     </MDBCol>
                     <MDBCol md="1" />
                 </MDBRow>
-                { this.createQuestionPanels() }  
+                {
+                    this.props.fetching
+                    ? spinner
+                    : this.createQuestionPanels() 
+                }  
             </MDBContainer>
         )
     }
@@ -159,7 +171,8 @@ class QuestionsList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        questions: state.questions.questions
+        questions: state.questions.questions,
+        fetching: state.questions.fetching
     }
 }
 
