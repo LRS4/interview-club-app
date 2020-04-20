@@ -7,6 +7,7 @@ const RECEIVED_QUESTIONS = 'RECEIVED_QUESTIONS';
 const ADD_QUESTION = 'ADD_QUESTION';
 const REMOVE_QUESTION = 'REMOVE_QUESTION';
 const UPDATE_QUESTION = 'UPDATE_QUESTION';
+const REMOVE_ANSWER = 'REMOVE_ANSWER';
 
 export function getAllQuestions() {
     return (dispatch, getState) => {
@@ -56,6 +57,17 @@ export function updateQuestion(id, question) {
             .then(result => {
                 console.log(result.data);
                 dispatch({ type: UPDATE_QUESTION, id, question });
+            })
+            .catch(err => console.log("Error: " + err)); 
+    }
+}
+
+export function removeAnswer(qid, id) {
+    return (dispatch) => {
+        axios.delete(`/answers/${qid}/${id}`)
+            .then(response => {
+                console.log(response);
+                dispatch({ type: REMOVE_ANSWER, qid, id });
             })
             .catch(err => console.log("Error: " + err)); 
     }
