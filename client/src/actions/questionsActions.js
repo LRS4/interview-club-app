@@ -7,6 +7,7 @@ const RECEIVED_QUESTIONS = 'RECEIVED_QUESTIONS';
 const ADD_QUESTION = 'ADD_QUESTION';
 const REMOVE_QUESTION = 'REMOVE_QUESTION';
 const UPDATE_QUESTION = 'UPDATE_QUESTION';
+const ADD_ANSWER = 'ADD_ANSWER';
 const REMOVE_ANSWER = 'REMOVE_ANSWER';
 
 export function getAllQuestions() {
@@ -60,6 +61,17 @@ export function updateQuestion(id, question) {
             })
             .catch(err => console.log("Error: " + err)); 
     }
+}
+
+export function addAnswer(qid, answer) {
+    return (dispatch) => {
+        axios.post(`/answers/add/${qid}`, answer)
+            .then(result => {
+                console.log(result.data);
+                dispatch({ type: ADD_ANSWER, qid, answer: result.data });
+            })
+            .catch(err => console.log("Error: " + err));
+    };
 }
 
 export function removeAnswer(qid, id) {

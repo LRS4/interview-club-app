@@ -49,6 +49,7 @@ class AnswersList extends Component {
 
     render() {
         return (
+            this.props.question === undefined ? window.location = '/' :
             <MDBContainer>
                 <MDBRow>
                     <MDBCol md="4" />

@@ -25,8 +25,8 @@ router.route('/add/:qid').post((request, response) => {
             question.answers.push(newAnswer);
 
             question.save()
-                .then(() => response.json('Answer added.'))
-                .catch(err => res.status(400).json('Error: '+ err));
+                .then(() => response.status(200).json(newAnswer))
+                .catch(err => response.status(400).json('Error: '+ err));
         })
         .catch(err => response.status(400).json('Error: ' + err));
 });

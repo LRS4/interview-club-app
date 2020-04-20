@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addAnswer } from './../../actions/questionsActions';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import axios from 'axios';
 import '../Questions/create-question.css'
 import Sectors from '../Questions/sectors.js';
 
-export default class CreateAnswer extends Component {
+class CreateAnswer extends Component {
     constructor(props) {
         super(props);
 
@@ -13,7 +15,6 @@ export default class CreateAnswer extends Component {
         // this.onChangeUsername = this.onChangeUsername.bind(this);
 
         this.state = {
-            question: "",
             username: "",
             text: "", 
             job: "",
@@ -25,14 +26,6 @@ export default class CreateAnswer extends Component {
     }
 
     componentDidMount = () => {
-        axios.get('/questions/' + this.props.match.params.qid)
-            .then(response => {
-                this.setState({
-                    question: response.data.text
-                })
-            })
-            
-
         axios.get('/users')
             .then(response => {
                 if (response.data.length > 0) {
@@ -74,7 +67,7 @@ export default class CreateAnswer extends Component {
         })
     }
 
-    onSubmit = async (e) => {
+    onSubmit = (e) => {
         e.preventDefault();
 
         const answer = {
@@ -87,18 +80,17 @@ export default class CreateAnswer extends Component {
 
         console.log(answer);
 
-        await axios.post('/answers/add/' + this.props.match.params.qid, answer)
-                .then(result => console.log(result.data))
-                .catch(err => console.log("Error: " + err));
+        this.props.addAnswer(this.props.match.params.qid, answer);
 
-        window.location = '/answers/' + this.props.match.params.qid;
+        this.props.history.push(`/answers/${this.props.match.params.qid}`);
     }
 
     render() {
         return (
+            this.props.question === undefined ? window.location = '/' :
             <MDBContainer>
                 <h3 className="text-center" style={{ marginTop: "10px" }}>
-                    { this.state.question }
+                    { this.props.question.text }
                 </h3>
                 <MDBRow>
                     <MDBCol md="3" />
@@ -177,3 +169,18 @@ export default class CreateAnswer extends Component {
         )
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+    let id = String(ownProps.match.params.qid);
+    return {
+        question: state.questions.questions.find(question => question._id === id)
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addAnswer: (qid, answer) => dispatch(addAnswer(qid, answer))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAnswer);

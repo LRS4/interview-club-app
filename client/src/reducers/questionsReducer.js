@@ -49,6 +49,18 @@ const questionsReducer = (state = initialState, action) => {
                     : question
                 ))
             }
+        case 'ADD_ANSWER':
+            return {
+                ...state,
+                questions: [...state.questions].map(question => (
+                    question._id === action.qid
+                    ? {
+                        ...question,
+                        answers: [action.answer, ...question.answers]
+                    }
+                    : question
+                ))
+            }
         case 'REMOVE_ANSWER':
             return {
                 ...state,
