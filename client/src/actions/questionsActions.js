@@ -7,6 +7,7 @@ import {
     REMOVE_QUESTION,
     UPDATE_QUESTION,
     ADD_ANSWER,
+    UPDATE_ANSWER,
     REMOVE_ANSWER
 } from '../constants/actionTypes';
 var moment = require('moment');
@@ -73,6 +74,18 @@ export function addAnswer(qid, answer) {
             })
             .catch(err => console.log("Error: " + err));
     };
+}
+
+export function updateAnswer(qid, id, answer) {
+    return (dispatch) => {
+        
+        axios.put(`/answers/update/${qid}/${id}`, answer)
+            .then(result => {
+                console.log(result.data);
+                dispatch({ type: UPDATE_ANSWER, qid, id, answer });
+            })
+            .catch(err => console.log("Error: " + err)); 
+    }
 }
 
 export function removeAnswer(qid, id) {

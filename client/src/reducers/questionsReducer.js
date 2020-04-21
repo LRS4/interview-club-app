@@ -61,6 +61,28 @@ const questionsReducer = (state = initialState, action) => {
                     : question
                 ))
             }
+        case 'UPDATE_ANSWER':
+            return {
+                ...state,
+                questions: [...state.questions].map(question => (
+                    question._id === action.qid 
+                    ? {
+                        ...question,
+                        answers: [...question.answers].map(answer => (
+                            answer._id === action.id
+                            ? {
+                                ...answer,
+                                text: action.answer.text,
+                                job: action.answer.job,
+                                sector: action.answer.sector,
+                                company: action.answer.company
+                            }
+                            : answer
+                        ))
+                    }
+                    : question
+                ))
+            }
         case 'REMOVE_ANSWER':
             return {
                 ...state,
@@ -73,8 +95,6 @@ const questionsReducer = (state = initialState, action) => {
                     : question
                 ))
             }
-
-            // add answer, update answer
         default:
             return state;
     }

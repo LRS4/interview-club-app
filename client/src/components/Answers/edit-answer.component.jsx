@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateQuestion } from './../../actions/questionsActions';
+import { updateAnswer } from './../../actions/questionsActions';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import axios from 'axios';
 import './../Questions/create-question.css';
@@ -79,12 +79,13 @@ class EditAnswer extends Component {
 
         console.log(answer);
 
-        this.props.updateQuestion(
+        this.props.updateAnswer(
+            this.props.match.params.qid,
             this.props.answer._id,
             answer
         );
 
-        this.props.history.push('/');
+        this.props.history.push(`/answers/${this.props.match.params.qid}`);
     }
 
     render() {
@@ -180,7 +181,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateQuestion: (id, question) => dispatch(updateQuestion(id, question))
+        updateAnswer: (qid, id, answer) => dispatch(updateAnswer(qid, id, answer))
     };
 }
 
