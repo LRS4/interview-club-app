@@ -1,14 +1,15 @@
 import axios from 'axios';
+import {
+    REQUESTING_QUESTIONS,
+    REQUESTING_QUESTIONS_ERROR,
+    RECEIVED_QUESTIONS,
+    ADD_QUESTION,
+    REMOVE_QUESTION,
+    UPDATE_QUESTION,
+    ADD_ANSWER,
+    REMOVE_ANSWER
+} from '../constants/actionTypes';
 var moment = require('moment');
-
-const REQUESTING_QUESTIONS = 'REQUESTING_QUESTIONS';
-const REQUESTING_QUESTIONS_ERROR = 'REQUESTING_QUESTIONS_ERROR';
-const RECEIVED_QUESTIONS = 'RECEIVED_QUESTIONS';
-const ADD_QUESTION = 'ADD_QUESTION';
-const REMOVE_QUESTION = 'REMOVE_QUESTION';
-const UPDATE_QUESTION = 'UPDATE_QUESTION';
-const ADD_ANSWER = 'ADD_ANSWER';
-const REMOVE_ANSWER = 'REMOVE_ANSWER';
 
 export function getAllQuestions() {
     return (dispatch, getState) => {
