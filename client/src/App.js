@@ -6,6 +6,7 @@ import QuestionsList from './components/Questions/questions-list.component.jsx';
 import EditQuestion from './components/Questions/edit-question.component.jsx';
 import CreateQuestion from './components/Questions/create-question.component.jsx';
 import AnswersList from './components/Answers/answers-list.component.jsx';
+import EditAnswer from './components/Answers/edit-answer.component.jsx';
 import CreateAnswer from './components/Answers/create-answer.component.jsx';
 import CreateUser from './components/Users/create-user.component.jsx';
 import SignIn from './components/Users/log-in.component.jsx';
@@ -24,6 +25,7 @@ function App() {
         <Route path='/edit/:id' exact component={EditQuestion} />
         <Route path='/create' exact component={CreateQuestion} />
         <Route path='/answers/:qid' exact component={AnswersList} />
+        <Route path='/edit/:qid/:id' exact component={EditAnswer} />
         <Route path='/create/:qid' exact component={CreateAnswer} />
         <Route path='/user' exact component={CreateUser} />
         <Route path='/login' exact component={SignIn} />

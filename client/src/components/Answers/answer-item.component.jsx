@@ -30,7 +30,7 @@ const Answer = (props) => (
                             onClick={() => { props.deleteAnswer(props.answer._id) }}
                         />                  
                     </span>
-                    <Link to={ "/edit/" + props.answer._id} >
+                    <Link to={ "/edit/" + props.qid + "/" + props.answer._id} >
                         <span className="float-right editDataBtn">
                             <MDBIcon
                                 icon='pen'

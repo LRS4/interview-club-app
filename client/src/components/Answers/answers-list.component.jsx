@@ -38,6 +38,7 @@ class AnswersList extends Component {
             return answers.map(answer => {
                 return (
                     <Answer 
+                        qid={this.props.match.params.qid}
                         answer={answer}
                         deleteAnswer={this.deleteAnswer}
                         key={answer._id}
