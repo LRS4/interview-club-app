@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 let User = require('../models/user.model');
 
 // @route   GET users
@@ -36,9 +37,17 @@ router.route('/add').post((req, res) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
                     newUser.password = hash;
-
                     newUser.save()
-                        .then(() => res.json('User added!'))
+                        .then((user) => {
+                            jwt.sign({
+                                id: user.id 
+                            }, process.env.JWT_SECRET, {
+                                expiresIn: 3600
+                            }, (err, token) => {
+                                if (err) throw err;
+                                res.json(`User ${user.username} added! Token: ${token}`);
+                            }); 
+                        })
                         .catch(err => res.status(400).json('Error: ' + err));
                 });
             });
