@@ -37,11 +37,13 @@ mongoose.connection.on('error', err => console.log(err)); // checks for errors
 const questionsRouter = require('./routes/questions');
 const answersRouter = require('./routes/answers');
 const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 
 // Use defined routes
 app.use('/questions', questionsRouter);
 app.use('/answers', answersRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
 
 // Deployment step
 if (process.env.NODE_ENV == 'production') {
