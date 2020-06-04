@@ -78,6 +78,7 @@ npm install moment
 * Postman - to test API calls
 * MongoDB Atlas and Compass
 * VS Code
+* [Bcrypt](https://www.npmjs.com/package/bcryptjs)
 
 ## References
 
@@ -89,3 +90,4 @@ npm install moment
 * [nodemon](https://www.npmjs.com/package/nodemon)
 * [MDBootstrap](https://mdbootstrap.com/docs/react/getting-started/quick-start/)
 * [Deployment](https://coursework.vschool.io/deploying-mern-with-heroku/)
+* [JWT Authorisation Tutorial](https://www.youtube.com/watch?v=USaB1adUHM0)
