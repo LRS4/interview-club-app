@@ -79,6 +79,7 @@ npm install moment
 * MongoDB Atlas and Compass
 * VS Code
 * [Bcrypt](https://www.npmjs.com/package/bcryptjs)
+* [JWT](https://jwt.io/)
 
 ## References
 
