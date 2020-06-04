@@ -33,9 +33,10 @@ npm start
 
 Environment variables
 * Create .env file
-* ATLAS_URI = the MongoDB Atlas connection string
+* ATLAS_URI = MongoDB Atlas connection string
+* API_KEY = API key
+* JWT_SECRET = JWT secret key
 * NODE_ENV = 'production' or 'deployment' Express settings
-* REACT_APP_LOCAL_API_ENDPOINT = 'http://localhost:5000' to seperate production and development environments
 
 ## Packages used
 
