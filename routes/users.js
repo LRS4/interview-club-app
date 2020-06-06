@@ -1,13 +1,15 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const apikey = require('../middleware/apikey');
 let User = require('../models/user.model');
 
-// @route   GET users
+// @route   GET users?apikey=key
 // @desc    Get all users
-// @access  Public
-router.route('/').get((req, res) => {
+// @access  Private
+router.route('/').get(apikey, (req, res) => {
     User.find()
+        .select('-password')
         .then(users => res.json(users))
         .catch(err => res.status(400).json('Error: ' + err));
 });

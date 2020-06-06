@@ -1,12 +1,11 @@
 const router = require('express').Router();
 const auth = require('../middleware/auth');
-const apikey = require('../middleware/apikey');
 let Question = require('../models/question.model');
 
-// @route   GET questions?apikey=key
+// @route   GET questions
 // @desc    Get all questions
-// @access  Private
-router.route('/').get(apikey, (req, res) => {
+// @access  Public
+router.route('/').get((req, res) => {
     Question.find()
         .then(questions => res.json(questions))
         .catch(err => res.status(400).json('Error: ' + err));
