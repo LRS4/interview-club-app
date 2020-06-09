@@ -21,6 +21,8 @@ export class Navbar extends Component {
     }
 
     render() {
+        const { isAuthenticated, user } = this.props;
+
         return (
             <MDBNavbar color="elegant-color" dark expand="md">
                 <MDBNavbarBrand>
@@ -33,12 +35,17 @@ export class Navbar extends Component {
                     <MDBNavbarNav left>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
-                        {   this.props.isAuthenticated ?
+                        <MDBNavItem>
+                            <MDBNavLink to='/'>
+                                <strong>{ user ? `Welcome ${ user.username }` : '' }</strong>
+                            </MDBNavLink>
+                        </MDBNavItem>
+                        <MDBNavItem>
+                            <MDBNavLink to="/about">About</MDBNavLink>
+                        </MDBNavItem>
+                        {   isAuthenticated ?
                             null :
                             <Fragment> 
-                                <MDBNavItem>
-                                    <MDBNavLink to="/about">About</MDBNavLink>
-                                </MDBNavItem>
                                 <MDBNavItem>
                                     <MDBNavLink to="/user">Sign Up</MDBNavLink>
                                 </MDBNavItem>
@@ -63,6 +70,7 @@ export class Navbar extends Component {
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
 });
 
 export default connect(mapStateToProps, null)(Navbar);
