@@ -29,6 +29,11 @@ class CreateUser extends Component {
                 this.setState({ msg: null });
             }
         }
+
+        // If authenticated, return to home page
+        if (this.props.isAuthenticated) {
+            this.props.history.push('/');
+        }
     }
 
     onChangeUsername = (e) => {
