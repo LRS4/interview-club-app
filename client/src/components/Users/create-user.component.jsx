@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import { connect } from 'react-redux';
+import { register } from '../../actions/authActions';
+import { clearErrors } from '../../actions/errorActions';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput, MDBAlert } from 'mdbreact';
 import axios from 'axios';
 
-export default class CreateUser extends Component {
+class CreateUser extends Component {
     constructor(props) {
         super(props);
 
@@ -11,37 +14,62 @@ export default class CreateUser extends Component {
             email: "",
             confirmEmail: "",
             password: "",
-            confirmPassword: ""
+            confirmPassword: "",
+            msg: null
         }
     }
 
-    // https://jasonwatmore.com/post/2017/09/16/react-redux-user-registration-and-login-tutorial-example
+    componentDidUpdate(prevProps) {
+        const { error } = this.props;
+        if (error != prevProps.error) {
+            // Check for register error
+            if (error.id == 'REGISTER_FAIL') {
+                this.setState({ msg: error.msg.msg });
+            } else {
+                this.setState({ msg: null });
+            }
+        }
+    }
+
     onChangeUsername = (e) => {
         this.setState({
             username: e.target.value
         })
     }
 
+    checkEmailsMatch = () => {
+        return this.state.email == this.state.confirmEmail;
+    }
+
+    checkPasswordsMatch = () => {
+        return this.state.password == this.state.confirmPassword;
+    }
+
     onSubmit = (e) => {
         e.preventDefault();
 
-        const user = {
-            username: this.state.username,
+        const { username, email, password } = this.state;
+
+        // Create user object
+        const newUser = {
+            username,
+            email,
+            password
+        }; 
+
+        console.log(newUser);
+
+        // Client side checks
+        if (!this.checkEmailsMatch()) {
+            this.setState({ msg: 'Email does not match.' });
+            return;
+        } else if (!this.checkPasswordsMatch()) {
+            this.setState({ msg: 'Passwords do not match. '});
+            return;
+        } else {
+            // Attempt to register user
+            this.props.register(newUser);
         }
-
-        console.log(user);
-
-        axios.post('/users/add', user)
-            .then(result => console.log(result.data))
-            .catch(err => console.log("Error: " + err));
-
-        this.setState({
-            username: "",
-            email: "",
-            confirmEmail: "",
-            password: "",
-            confirmPassword: ""
-        })
     }
 
     render() {
@@ -51,6 +79,13 @@ export default class CreateUser extends Component {
                 <MDBRow>
                     <MDBCol md="3" />
                     <MDBCol md="6">
+                    {
+                        this.state.msg ?
+                        <MDBAlert color="danger" dismiss onClose={() => this.props.clearErrors()}>
+                            { this.state.msg }
+                        </MDBAlert> :
+                        null
+                    }
                     <form onSubmit={this.onSubmit}>
                         <p className="h5 text-center mb-4">Sign up</p>
                         <div className="grey-text">
@@ -113,3 +148,15 @@ export default class CreateUser extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    register: (newUser) => dispatch(register(newUser)),
+    clearErrors: () => dispatch(clearErrors())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);
