@@ -15,7 +15,6 @@ class CreateQuestion extends Component {
         // this.onChangeUsername = this.onChangeUsername.bind(this);
 
         this.state = {
-            username: "",
             text: "", 
             job: "",
             sector: "",
@@ -36,12 +35,6 @@ class CreateQuestion extends Component {
                 }
             })
         }
-
-    onChangeUsername = (e) => {
-        this.setState({
-            username: e.target.value
-        });
-    }
 
     onChangeText = (e) => {
         this.setState({
@@ -71,7 +64,7 @@ class CreateQuestion extends Component {
         e.preventDefault();
 
         const question = {
-            username: this.state.username,
+            username: this.props.username,
             text: this.state.text, 
             job: this.state.job,
             sector: this.state.sector,
@@ -144,14 +137,6 @@ class CreateQuestion extends Component {
                                 success="right"
                                 onChange={this.onChangeCompany}
                             />
-                            <MDBInput 
-                                label="User" 
-                                group type="text" 
-                                validate
-                                error="wrong" 
-                                success="right"
-                                onChange={this.onChangeUsername}
-                            />
                         </div>
                         <div className="text-center">
                             <MDBBtn className="interviewClubBtn" type="submit" color="pink">
@@ -167,10 +152,15 @@ class CreateQuestion extends Component {
     }
 }
 
+const mapStateToProps = (state) => ({
+    username: state.auth.user.username,
+    error: state.error
+});
+
 const mapDispatchToProps = (dispatch) => {
     return {
         addQuestion: (question) => dispatch(addQuestion(question))
     };
 }
 
-export default connect(null, mapDispatchToProps)(CreateQuestion);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateQuestion);
