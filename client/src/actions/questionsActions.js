@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { tokenConfig } from '../actions/authActions';
+import { returnErrors } from '../actions/errorActions';
 import {
     REQUESTING_QUESTIONS,
     REQUESTING_QUESTIONS_ERROR,
@@ -33,24 +35,24 @@ export function getAllQuestions() {
 }
 
 export function addQuestion(question) {
-    return (dispatch) => {
-        axios.post('/questions/add', question)
+    return (dispatch, getState) => {
+        axios.post('/questions/add', question, tokenConfig(getState))
             .then(result => {
                 console.log(result.data);
                 dispatch({ type: ADD_QUESTION, question: result.data });
             })
-            .catch(err => console.log("Error: " + err));
+            .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
     };
 }
 
 export function removeQuestion(questionId) {
-    return (dispatch) => {
-        axios.delete('/questions/' + questionId)
+    return (dispatch, getState) => {
+        axios.delete('/questions/' + questionId, tokenConfig(getState))
             .then(response => {
                 console.log(response);
                 dispatch({ type: REMOVE_QUESTION, questionId});
             })
-            .catch(err => console.log(err));
+            .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
     }
 }
 
@@ -61,7 +63,7 @@ export function updateQuestion(id, question) {
                 console.log(result.data);
                 dispatch({ type: UPDATE_QUESTION, id, question });
             })
-            .catch(err => console.log("Error: " + err)); 
+            .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
     }
 }
 
@@ -72,7 +74,7 @@ export function addAnswer(qid, answer) {
                 console.log(result.data);
                 dispatch({ type: ADD_ANSWER, qid, answer: result.data });
             })
-            .catch(err => console.log("Error: " + err));
+            .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
     };
 }
 
@@ -84,7 +86,7 @@ export function updateAnswer(qid, id, answer) {
                 console.log(result.data);
                 dispatch({ type: UPDATE_ANSWER, qid, id, answer });
             })
-            .catch(err => console.log("Error: " + err)); 
+            .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
     }
 }
 
@@ -95,6 +97,6 @@ export function removeAnswer(qid, id) {
                 console.log(response);
                 dispatch({ type: REMOVE_ANSWER, qid, id });
             })
-            .catch(err => console.log("Error: " + err)); 
+            .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
     }
 }
