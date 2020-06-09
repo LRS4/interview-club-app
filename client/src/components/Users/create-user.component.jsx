@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { register } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput, MDBAlert } from 'mdbreact';
-import axios from 'axios';
 
 class CreateUser extends Component {
     constructor(props) {
@@ -21,9 +20,9 @@ class CreateUser extends Component {
 
     componentDidUpdate(prevProps) {
         const { error } = this.props;
-        if (error != prevProps.error) {
+        if (error !== prevProps.error) {
             // Check for register error
-            if (error.id == 'REGISTER_FAIL') {
+            if (error.id === 'REGISTER_FAIL') {
                 this.setState({ msg: error.msg.msg });
             } else {
                 this.setState({ msg: null });
@@ -43,11 +42,11 @@ class CreateUser extends Component {
     }
 
     checkEmailsMatch = () => {
-        return this.state.email == this.state.confirmEmail;
+        return this.state.email === this.state.confirmEmail;
     }
 
     checkPasswordsMatch = () => {
-        return this.state.password == this.state.confirmPassword;
+        return this.state.password === this.state.confirmPassword;
     }
 
     onSubmit = (e) => {

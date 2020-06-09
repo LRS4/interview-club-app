@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Logout from './logout.component';
 import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse
 } from "mdbreact";
@@ -33,6 +34,9 @@ export default class Navbar extends Component {
                     <MDBNavbarNav right>
                         <MDBNavItem>
                             <MDBNavLink to="/about">About</MDBNavLink>
+                        </MDBNavItem>
+                        <MDBNavItem>
+                            <Logout />
                         </MDBNavItem>
                         <MDBNavItem>
                             <MDBNavLink to="/user">Sign Up</MDBNavLink>
