@@ -14,7 +14,7 @@ router.route('/').get(apikey, (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// @route   POST users
+// @route   POST users/add
 // @desc    Register new user
 // @access  Public
 router.route('/add').post((req, res) => {
