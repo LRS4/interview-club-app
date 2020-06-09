@@ -61,8 +61,6 @@ class CreateUser extends Component {
             password
         }; 
 
-        console.log(newUser);
-
         // Client side checks
         if (!this.checkEmailsMatch()) {
             this.setState({ msg: 'Email does not match.' });

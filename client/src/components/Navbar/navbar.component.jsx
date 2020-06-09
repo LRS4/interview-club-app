@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Logout from './logout.component';
 import {
 MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse
 } from "mdbreact";
 import './navbar.component.css';
 
-export default class Navbar extends Component {
+export class Navbar extends Component {
     constructor(props) {
         super(props);
         
@@ -32,21 +33,36 @@ export default class Navbar extends Component {
                     <MDBNavbarNav left>
                     </MDBNavbarNav>
                     <MDBNavbarNav right>
-                        <MDBNavItem>
-                            <MDBNavLink to="/about">About</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <Logout />
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to="/user">Sign Up</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to="/login">Log In</MDBNavLink>
-                        </MDBNavItem>
+                        {   this.props.isAuthenticated ?
+                            null :
+                            <Fragment> 
+                                <MDBNavItem>
+                                    <MDBNavLink to="/about">About</MDBNavLink>
+                                </MDBNavItem>
+                                <MDBNavItem>
+                                    <MDBNavLink to="/user">Sign Up</MDBNavLink>
+                                </MDBNavItem>
+                                <MDBNavItem>
+                                    <MDBNavLink to="/login">Log In</MDBNavLink>
+                                </MDBNavItem>
+                            </Fragment>
+                        } 
+                        { 
+                            this.props.isAuthenticated ?
+                            <MDBNavItem>
+                                <Logout />
+                            </MDBNavItem>
+                            : null
+                        }
                     </MDBNavbarNav>
                 </MDBCollapse>
             </MDBNavbar>
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, null)(Navbar);

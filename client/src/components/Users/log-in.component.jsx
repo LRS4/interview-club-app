@@ -1,21 +1,37 @@
 import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { login } from '../../actions/authActions';
+import { clearErrors } from '../../actions/errorActions';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput, MDBAlert } from 'mdbreact';
 
-export default class SignIn extends Component {
+export class SignIn extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             username: "",
-            email: "",
-            confirmEmail: "",
             password: "",
-            confirmPassword: ""
+            msg: null
         }
     }
 
-    // https://jasonwatmore.com/post/2017/09/16/react-redux-user-registration-and-login-tutorial-example
+    componentDidUpdate(prevProps) {
+        const { error } = this.props;
+        if (error !== prevProps.error) {
+            // Check for register error
+            if (error.id === 'LOGIN_FAIL') {
+                this.setState({ msg: error.msg.msg });
+            } else {
+                this.setState({ msg: null });
+            }
+        }
+
+        // If authenticated, return to home page
+        if (this.props.isAuthenticated) {
+            this.props.history.push('/');
+        }
+    }
+
     onChangeUsername = (e) => {
         this.setState({
             username: e.target.value
@@ -25,23 +41,15 @@ export default class SignIn extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
+        const { username, password } = this.state;
+
         const user = {
-            username: this.state.username,
+            username, 
+            password
         }
 
-        console.log(user);
-
-        axios.post('/users/add', user)
-            .then(result => console.log(result.data))
-            .catch(err => console.log("Error: " + err));
-
-        this.setState({
-            username: "",
-            email: "",
-            confirmEmail: "",
-            password: "",
-            confirmPassword: ""
-        })
+        // Attempt to login
+        this.props.login(user);
     }
 
     render() {
@@ -51,6 +59,13 @@ export default class SignIn extends Component {
                 <MDBRow>
                     <MDBCol md="3" />
                     <MDBCol md="6">
+                    {
+                        this.state.msg ?
+                        <MDBAlert color="danger" dismiss onClose={() => this.props.clearErrors()}>
+                            { this.state.msg }
+                        </MDBAlert> :
+                        null
+                    }
                     <form onSubmit={this.onSubmit}>
                         <p className="h5 text-center mb-4">Welcome back!</p>
                         <div className="grey-text">
@@ -83,3 +98,15 @@ export default class SignIn extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    login: (username, password) => dispatch(login(username, password)),
+    clearErrors: () => dispatch(clearErrors())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
