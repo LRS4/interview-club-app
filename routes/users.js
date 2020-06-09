@@ -47,7 +47,14 @@ router.route('/add').post((req, res) => {
                                 expiresIn: 3600
                             }, (err, token) => {
                                 if (err) throw err;
-                                res.json(`User ${user.username} added! Token: ${token}`);
+                                res.json({
+                                    token,
+                                    user: {
+                                        id: user.id,
+                                        username: user.username,
+                                        email: user.email
+                                    }
+                                });
                             }); 
                         })
                         .catch(err => res.status(400).json('Error: ' + err));
