@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
     MDBCard, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBBadge
@@ -16,51 +17,61 @@ var moment = require('moment');
  * These are answer, deleteAnswer (a method) and key (a unique reference for each) 
  */
 
-const Answer = (props) => (
-    <MDBRow>
-        <MDBCol md="1" />
-        <MDBCol md="10">
-            <MDBCard color="white" text="black" className="card-body text-center" style={{ width: "100%", marginTop: "10px" }}>
-                <div className="flex-row float-right">
-                    <span className="float-right editDataBtn">
-                        <MDBIcon
-                            icon='trash-alt'
-                            size='1x'
-                            style={{ cursor: 'pointer', color: "#2E3B55" }}
-                            onClick={() => { props.deleteAnswer(props.answer._id) }}
-                        />                  
-                    </span>
-                    <Link to={ "/edit/" + props.qid + "/" + props.answer._id} >
-                        <span className="float-right editDataBtn">
-                            <MDBIcon
-                                icon='pen'
-                                size='1x'
-                                style={{ cursor: 'pointer', color: "#2E3B55", marginRight: "10px" }}
-                            />
-                        </span>
-                    </Link>
-                </div>
-                <MDBCardTitle style={{ fontSize: "18px" }}>
-                    {props.answer.text}
-                </MDBCardTitle>
-                <div className="flex-row">
-                    <MDBBadge>{props.answer.sector}</MDBBadge>
-                    <MDBBadge>{props.answer.company}</MDBBadge>
-                    <MDBBadge>{props.answer.votes} votes</MDBBadge>
-                </div>
-                <MDBCardText>
-                    Added by {props.answer.username} {moment(props.answer.createdAt).fromNow()}
-                </MDBCardText>
-                <div className="flex-row">
-                    <MDBBtn className="actionBtn" size="md" color="pink">
-                        <MDBIcon icon="thumbs-up" />
-                        This answer helped!
-                    </MDBBtn>
-                </div>
-            </MDBCard>
-        </MDBCol>
-        <MDBCol className="text-center" md="1" />
-    </MDBRow>
-)
+const Answer = (props) => {
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+    const user = useSelector(state => state.auth.user)
+    return (
+        <MDBRow>
+            <MDBCol md="1" />
+            <MDBCol md="10">
+                <MDBCard color="white" text="black" className="card-body text-center" style={{ width: "100%", marginTop: "10px" }}>
+                { 
+                    user !== null ?
+                        isAuthenticated && user.username === props.answer.username ?
+                        <div className="flex-row float-right">
+                            <span className="float-right editDataBtn">
+                                <MDBIcon
+                                    icon='trash-alt'
+                                    size='1x'
+                                    style={{ cursor: 'pointer', color: "#2E3B55" }}
+                                    onClick={() => { props.deleteAnswer(props.answer._id) }}
+                                />                  
+                            </span>
+                            <Link to={ "/edit/" + props.qid + "/" + props.answer._id} >
+                                <span className="float-right editDataBtn">
+                                    <MDBIcon
+                                        icon='pen'
+                                        size='1x'
+                                        style={{ cursor: 'pointer', color: "#2E3B55", marginRight: "10px" }}
+                                    />
+                                </span>
+                            </Link>
+                        </div>
+                        : null
+                    : null
+                }   
+                    <MDBCardTitle style={{ fontSize: "18px" }}>
+                        {props.answer.text}
+                    </MDBCardTitle>
+                    <div className="flex-row">
+                        <MDBBadge>{props.answer.sector}</MDBBadge>
+                        <MDBBadge>{props.answer.company}</MDBBadge>
+                        <MDBBadge>{props.answer.votes} votes</MDBBadge>
+                    </div>
+                    <MDBCardText>
+                        Added by {props.answer.username} {moment(props.answer.createdAt).fromNow()}
+                    </MDBCardText>
+                    <div className="flex-row">
+                        <MDBBtn className="actionBtn" size="md" color="pink">
+                            <MDBIcon icon="thumbs-up" />
+                            This answer helped!
+                        </MDBBtn>
+                    </div>
+                </MDBCard>
+            </MDBCol>
+            <MDBCol className="text-center" md="1" />
+        </MDBRow>
+    )
+}
 
 export default Answer;
