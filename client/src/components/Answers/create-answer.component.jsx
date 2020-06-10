@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addAnswer } from './../../actions/questionsActions';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
-import axios from 'axios';
 import '../Questions/create-question.css'
 import Sectors from '../Questions/sectors.js';
 
