@@ -57,8 +57,8 @@ export function removeQuestion(questionId) {
 }
 
 export function updateQuestion(id, question) {
-    return (dispatch) => {
-        axios.put('/questions/update/' + id, question)
+    return (dispatch, getState) => {
+        axios.put('/questions/update/' + id, question, tokenConfig(getState))
             .then(result => {
                 console.log(result.data);
                 dispatch({ type: UPDATE_QUESTION, id, question });
@@ -68,8 +68,8 @@ export function updateQuestion(id, question) {
 }
 
 export function addAnswer(qid, answer) {
-    return (dispatch) => {
-        axios.post(`/answers/add/${qid}`, answer)
+    return (dispatch, getState) => {
+        axios.post(`/answers/add/${qid}`, answer, tokenConfig(getState))
             .then(result => {
                 console.log(result.data);
                 dispatch({ type: ADD_ANSWER, qid, answer: result.data });
@@ -79,9 +79,8 @@ export function addAnswer(qid, answer) {
 }
 
 export function updateAnswer(qid, id, answer) {
-    return (dispatch) => {
-        
-        axios.put(`/answers/update/${qid}/${id}`, answer)
+    return (dispatch, getState) => {      
+        axios.put(`/answers/update/${qid}/${id}`, answer, tokenConfig(getState))
             .then(result => {
                 console.log(result.data);
                 dispatch({ type: UPDATE_ANSWER, qid, id, answer });
@@ -91,8 +90,8 @@ export function updateAnswer(qid, id, answer) {
 }
 
 export function removeAnswer(qid, id) {
-    return (dispatch) => {
-        axios.delete(`/answers/${qid}/${id}`)
+    return (dispatch, getState) => {
+        axios.delete(`/answers/${qid}/${id}`, tokenConfig(getState))
             .then(response => {
                 console.log(response);
                 dispatch({ type: REMOVE_ANSWER, qid, id });
