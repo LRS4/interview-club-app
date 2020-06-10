@@ -95,3 +95,4 @@ npm install moment
 * [JWT Authorisation Tutorial](https://www.youtube.com/watch?v=USaB1adUHM0)
 * [User Registration](https://jasonwatmore.com/post/2017/09/16/react-redux-user-registration-and-login-tutorial-example)
 * [Redux Selector Hooks](https://react-redux.js.org/next/api/hooks#useselector)
+* [Protected Routes](https://www.youtube.com/watch?v=xY_27UI2W5U)
