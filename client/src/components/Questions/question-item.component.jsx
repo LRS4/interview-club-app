@@ -32,7 +32,7 @@ const Question = (props) => {
             <MDBCard color="white" text="black" className="card-body text-center" style={{ width: "100%", marginTop: "10px" }}>
                 { 
                     user !== null ?
-                        isAuthenticated && user.username == props.question.username ?
+                        isAuthenticated && user.username === props.question.username ?
                         <div className="flex-row float-right">
                             <span className="float-right editDataBtn">
                                 <MDBIcon
