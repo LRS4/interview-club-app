@@ -96,11 +96,13 @@ class EditAnswer extends Component {
                     <MDBCol md="3" />
                     <MDBCol md="6">
                     <form onSubmit={this.onSubmit}>
-                        <p className="h5 text-center mb-4">ANSWER</p>
+                        <p className="h5 text-center mb-4 mt-3">
+                            { this.props.question }
+                        </p>
                         <div className="grey-text">
                             <MDBInput 
                                 type="textarea" 
-                                label="What was the question?" 
+                                label="What was your answer?" 
                                 rows="5" 
                                 onChange={this.onChangeText}
                                 value={this.state.text}
@@ -172,7 +174,8 @@ const mapStateToProps = (state, ownProps) => {
     let question = state.questions.questions.find(question => question._id === qid)
     if (question) {
         return {
-            answer: question.answers.find(answer => answer._id === id)
+            answer: question.answers.find(answer => answer._id === id),
+            question: question.text
         }
     } else {
         return window.location = '/';
