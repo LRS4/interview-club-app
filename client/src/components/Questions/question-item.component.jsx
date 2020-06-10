@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
     MDBCard, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBBadge
@@ -16,30 +17,44 @@ var moment = require('moment');
  * These are question, deleteQuestion (a method) and key (a unique reference for each) 
  */
 
-const Question = (props) => (
+/*
+ * Using redux selectors to access the state within the store
+ * https://react-redux.js.org/next/api/hooks#useselector
+ */
+
+const Question = (props) => {
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const user = useSelector(state => state.auth.user);
+    return (
     <MDBRow>
         <MDBCol md="1" />
         <MDBCol md="10">
             <MDBCard color="white" text="black" className="card-body text-center" style={{ width: "100%", marginTop: "10px" }}>
-                <div className="flex-row float-right">
-                    <span className="float-right editDataBtn">
-                        <MDBIcon
-                            icon='trash-alt'
-                            size='1x'
-                            style={{ cursor: 'pointer', color: "#2E3B55" }}
-                            onClick={() => { props.deleteQuestion(props.question._id) }}
-                        />                  
-                    </span>
-                    <Link to={ "/edit/" + props.question._id} >
-                        <span className="float-right editDataBtn">
-                            <MDBIcon
-                                icon='pen'
-                                size='1x'
-                                style={{ cursor: 'pointer', color: "#2E3B55", marginRight: "10px" }}
-                            />
-                        </span>
-                    </Link>
-                </div>
+                { 
+                    user !== null ?
+                        isAuthenticated && user.username == props.question.username ?
+                        <div className="flex-row float-right">
+                            <span className="float-right editDataBtn">
+                                <MDBIcon
+                                    icon='trash-alt'
+                                    size='1x'
+                                    style={{ cursor: 'pointer', color: "#2E3B55" }}
+                                    onClick={() => { props.deleteQuestion(props.question._id) }}
+                                />                  
+                            </span>
+                            <Link to={ "/edit/" + props.question._id} >
+                                <span className="float-right editDataBtn">
+                                    <MDBIcon
+                                        icon='pen'
+                                        size='1x'
+                                        style={{ cursor: 'pointer', color: "#2E3B55", marginRight: "10px" }}
+                                    />
+                                </span>
+                            </Link>
+                        </div>
+                        : null
+                    : null
+                }
                 <MDBCardTitle>
                     {props.question.text}
                 </MDBCardTitle>
@@ -80,6 +95,7 @@ const Question = (props) => (
         </MDBCol>
         <MDBCol className="text-center" md="1" />
     </MDBRow>
-)
+    )
+}
 
 export default Question;
