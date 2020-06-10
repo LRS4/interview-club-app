@@ -15,32 +15,12 @@ class CreateAnswer extends Component {
         // this.onChangeUsername = this.onChangeUsername.bind(this);
 
         this.state = {
-            username: "",
             text: "", 
             job: "",
             sector: "",
             company: "",
-            users: [],
             sectors: [Sectors.sort((a, b) => a.localeCompare(b))][0]
         }
-    }
-
-    componentDidMount = () => {
-        axios.get('/users')
-            .then(response => {
-                if (response.data.length > 0) {
-                    this.setState({
-                        users: response.data.map(user => user.username),
-                        username: response.data[0].username
-                    })
-                }
-            })
-        }
-
-    onChangeUsername = (e) => {
-        this.setState({
-            username: e.target.value
-        });
     }
 
     onChangeText = (e) => {
@@ -71,14 +51,12 @@ class CreateAnswer extends Component {
         e.preventDefault();
 
         const answer = {
-            username: this.state.username,
+            username: this.props.username,
             text: this.state.text, 
             job: this.state.job,
             sector: this.state.sector,
             company: this.state.company
         }
-
-        console.log(answer);
 
         this.props.addAnswer(this.props.match.params.qid, answer);
 
@@ -146,15 +124,6 @@ class CreateAnswer extends Component {
                                 onChange={this.onChangeCompany}
                                 maxlength="40"
                             />
-                            <MDBInput 
-                                label="User" 
-                                group type="text" 
-                                validate
-                                error="wrong" 
-                                success="right"
-                                onChange={this.onChangeUsername}
-                                required
-                            />
                         </div>
                         <div className="text-center">
                             <MDBBtn type="submit" className="interviewClubBtn" color="pink">
@@ -173,7 +142,8 @@ class CreateAnswer extends Component {
 const mapStateToProps = (state, ownProps) => {
     let id = String(ownProps.match.params.qid);
     return {
-        question: state.questions.questions.find(question => question._id === id)
+        question: state.questions.questions.find(question => question._id === id),
+        username: state.auth.user.username
     }
 }
 
