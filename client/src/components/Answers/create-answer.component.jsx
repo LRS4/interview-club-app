@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { addAnswer } from './../../actions/questionsActions';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import '../Questions/create-question.css'
@@ -50,7 +51,7 @@ class CreateAnswer extends Component {
         e.preventDefault();
 
         const answer = {
-            username: this.props.username,
+            username: this.props.user.username,
             text: this.state.text, 
             job: this.state.job,
             sector: this.state.sector,
@@ -63,6 +64,9 @@ class CreateAnswer extends Component {
     }
 
     render() {
+        const { isAuthorised } = this.props;
+        if (!isAuthorised) return <Redirect to='/login' />
+
         return (
             this.props.question === undefined ? window.location = '/' :
             <MDBContainer>
@@ -142,7 +146,8 @@ const mapStateToProps = (state, ownProps) => {
     let id = String(ownProps.match.params.qid);
     return {
         question: state.questions.questions.find(question => question._id === id),
-        username: state.auth.user.username
+        user: state.auth.user,
+        isAuthorised: state.auth.isAuthorised
     }
 }
 

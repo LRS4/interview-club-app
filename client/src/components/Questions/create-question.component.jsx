@@ -4,6 +4,7 @@ import axios from 'axios';
 import './create-question.css'
 import Sectors from './sectors.js';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { addQuestion } from './../../actions/questionsActions';
 
 class CreateQuestion extends Component {
@@ -64,7 +65,7 @@ class CreateQuestion extends Component {
         e.preventDefault();
 
         const question = {
-            username: this.props.username,
+            username: this.props.user.username,
             text: this.state.text, 
             job: this.state.job,
             sector: this.state.sector,
@@ -82,6 +83,9 @@ class CreateQuestion extends Component {
     }
 
     render() {
+        const { isAuthorised } = this.props;
+        if (!isAuthorised) return <Redirect to='/login' />
+
         return (
             <MDBContainer>
                 <MDBRow>
@@ -153,7 +157,7 @@ class CreateQuestion extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    username: state.auth.user.username,
+    user: state.auth.user,
     error: state.error
 });
 

@@ -76,7 +76,8 @@ class AnswersList extends Component {
 const mapStateToProps = (state, ownProps) => {
     let id = String(ownProps.match.params.qid);
     return {
-        question: state.questions.questions.find(question => question._id === id)
+        question: state.questions.questions.find(question => question._id === id),
+        isAuthorised: state.auth.isAuthorised
     }
 }
 
