@@ -47,7 +47,7 @@ export class Navbar extends Component {
                             null :
                             <Fragment> 
                                 <MDBNavItem>
-                                    <MDBNavLink to="/user">Sign Up</MDBNavLink>
+                                    <MDBNavLink to="/register">Sign Up</MDBNavLink>
                                 </MDBNavItem>
                                 <MDBNavItem>
                                     <MDBNavLink to="/login">Log In</MDBNavLink>

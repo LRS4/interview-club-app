@@ -34,7 +34,7 @@ class App extends Component {
           <Route path='/answers/:qid' exact component={AnswersList} />
           <Route path='/edit/:qid/:id' exact component={EditAnswer} />
           <Route path='/create/:qid' exact component={CreateAnswer} />
-          <Route path='/user' exact component={CreateUser} />
+          <Route path='/register' exact component={CreateUser} />
           <Route path='/login' exact component={SignIn} />
           <Route component={PageNotFound}></Route>
         </Switch>
