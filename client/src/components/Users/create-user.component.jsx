@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { register } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput, MDBAlert } from 'mdbreact';
@@ -75,6 +76,9 @@ class CreateUser extends Component {
     }
 
     render() {
+        const { isAuthorised } = this.props;
+        if (isAuthorised) return <Redirect to='/' />
+
         return (
             <MDBContainer>
                 <br />
