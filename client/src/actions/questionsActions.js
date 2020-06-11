@@ -8,6 +8,7 @@ import {
     ADD_QUESTION,
     REMOVE_QUESTION,
     UPDATE_QUESTION,
+    UPVOTE_QUESTION,
     ADD_ANSWER,
     UPDATE_ANSWER,
     REMOVE_ANSWER
@@ -62,6 +63,17 @@ export function updateQuestion(id, question) {
             .then(result => {
                 console.log(result.data);
                 dispatch({ type: UPDATE_QUESTION, id, question });
+            })
+            .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+    }
+}
+
+export function upvoteQuestion(qid, uid) {
+    return (dispatch, getState) => {
+        axios.put(`questions/vote/${qid}/${uid}`, null, tokenConfig(getState))
+            .then(result => {
+                console.log(result.data);
+                dispatch({ type: UPVOTE_QUESTION, qid, uid });
             })
             .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
     }
