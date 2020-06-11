@@ -11,6 +11,7 @@ import {
     UPVOTE_QUESTION,
     ADD_ANSWER,
     UPDATE_ANSWER,
+    UPVOTE_ANSWER,
     REMOVE_ANSWER
 } from '../constants/actionTypes';
 var moment = require('moment');
@@ -96,6 +97,17 @@ export function updateAnswer(qid, id, answer) {
             .then(result => {
                 console.log(result.data);
                 dispatch({ type: UPDATE_ANSWER, qid, id, answer });
+            })
+            .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+    }
+}
+
+export function upvoteAnswer(qid, id, uid) {
+    return (dispatch, getState) => {      
+        axios.put(`/answers/vote/${qid}/${id}/${uid}`, null, tokenConfig(getState))
+            .then(result => {
+                console.log(result.data);
+                dispatch({ type: UPVOTE_ANSWER, qid, id, uid });
             })
             .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
     }

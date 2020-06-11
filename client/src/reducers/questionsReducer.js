@@ -96,6 +96,26 @@ const questionsReducer = (state = initialState, action) => {
                     : question
                 ))
             }
+        case 'UPVOTE_ANSWER':
+            return {
+                ...state,
+                questions: [...state.questions].map(question => (
+                    question._id === action.qid 
+                    ? {
+                        ...question,
+                        answers: [...question.answers].map(answer => (
+                            answer._id === action.id
+                            ? {
+                                ...answer,
+                                votes: answer.votes + 1,
+                                voters: [action.uid, ...answer.voters]
+                            }
+                            : answer
+                        ))
+                    }
+                    : question
+                ))
+            }
         case 'REMOVE_ANSWER':
             return {
                 ...state,

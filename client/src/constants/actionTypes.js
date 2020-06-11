@@ -7,6 +7,7 @@ export const UPDATE_QUESTION = 'UPDATE_QUESTION';
 export const UPVOTE_QUESTION = 'UPVOTE_QUESTION';
 export const ADD_ANSWER = 'ADD_ANSWER';
 export const UPDATE_ANSWER = 'UPDATE_ANSWER';
+export const UPVOTE_ANSWER = 'UPVOTE_ANSWER';
 export const REMOVE_ANSWER = 'REMOVE_ANSWER';
 export const USER_LOADING = 'USER_LOADING';
 export const USER_LOADED = 'USER_LOADED';
