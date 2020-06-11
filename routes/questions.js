@@ -71,7 +71,7 @@ router.route('/update/:id').put(auth, (request, response) => {
         .catch(err => response.status(400).json('Error: ' + err));
 });
 
-// @route   PUT questions/:id/:uid
+// @route   PUT questions/vote/:id/:uid
 // @desc    Allows user to upvote a question
 // @access  Private
 router.route('/vote/:id/:uid').put(auth, (request, response) => {
