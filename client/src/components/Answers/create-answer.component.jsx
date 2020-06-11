@@ -64,8 +64,8 @@ class CreateAnswer extends Component {
     }
 
     render() {
-        const { isAuthorised } = this.props;
-        if (!isAuthorised) return <Redirect to='/login' />
+        const { isAuthenticated } = this.props;
+        if (!isAuthenticated) return <Redirect to='/login' />
 
         return (
             this.props.question === undefined ? window.location = '/' :
@@ -147,7 +147,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         question: state.questions.questions.find(question => question._id === id),
         user: state.auth.user,
-        isAuthorised: state.auth.isAuthorised
+        isAuthenticated: state.auth.isAuthenticated
     }
 }
 

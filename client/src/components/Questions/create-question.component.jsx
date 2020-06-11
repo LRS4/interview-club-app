@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
-import axios from 'axios';
 import './create-question.css'
 import Sectors from './sectors.js';
 import { connect } from 'react-redux';
@@ -20,22 +19,9 @@ class CreateQuestion extends Component {
             job: "",
             sector: "",
             company: "",
-            users: [],
             sectors: [Sectors.sort((a, b) => a.localeCompare(b))][0]
         }
     }
-
-    componentDidMount = () => {
-        axios.get('/users')
-            .then(response => {
-                if (response.data.length > 0) {
-                    this.setState({
-                        users: response.data.map(user => user.username),
-                        username: response.data[0].username
-                    })
-                }
-            })
-        }
 
     onChangeText = (e) => {
         this.setState({
@@ -83,8 +69,8 @@ class CreateQuestion extends Component {
     }
 
     render() {
-        const { isAuthorised } = this.props;
-        if (!isAuthorised) return <Redirect to='/login' />
+        const { isAuthenticated } = this.props;
+        if (!isAuthenticated) return <Redirect to='/login' />
 
         return (
             <MDBContainer>
@@ -158,6 +144,7 @@ class CreateQuestion extends Component {
 
 const mapStateToProps = (state) => ({
     user: state.auth.user,
+    isAuthenticated: state.auth.isAuthenticated,
     error: state.error
 });
 
