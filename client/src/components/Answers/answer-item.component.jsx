@@ -1,6 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { upvoteAnswer } from '../../actions/questionsActions';
 import { 
     MDBCard, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBBadge
 } from "mdbreact";
@@ -20,6 +21,7 @@ var moment = require('moment');
 const Answer = (props) => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const user = useSelector(state => state.auth.user)
+    const dispatch = useDispatch();
     return (
         <MDBRow>
             <MDBCol md="1" />
@@ -62,10 +64,19 @@ const Answer = (props) => {
                         Added by {props.answer.username} {moment(props.answer.createdAt).fromNow()}
                     </MDBCardText>
                     <div className="flex-row">
-                        <MDBBtn className="actionBtn" size="md" color="pink">
-                            <MDBIcon icon="thumbs-up" />
-                            This answer helped!
-                        </MDBBtn>
+                        {
+                        user !== null ?
+                            props.answer.voters.includes(user._id) ?
+                                <MDBBtn disabled className="actionBtn" size="md" color="unique">
+                                    <MDBIcon icon="thumbs-up" />
+                                    This answer helped!
+                                </MDBBtn>
+                            :   <MDBBtn className="actionBtn" size="md" color="pink" onClick={() => dispatch(upvoteAnswer(props.qid, props.answer._id, user._id))}>
+                                    <MDBIcon icon="thumbs-up" />
+                                    This answer helped!
+                                </MDBBtn>
+                        : null
+                    }
                     </div>
                 </MDBCard>
             </MDBCol>
