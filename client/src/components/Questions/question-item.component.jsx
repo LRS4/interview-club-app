@@ -1,6 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { upvoteQuestion } from '../../actions/questionsActions';
 import { 
     MDBCard, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBBadge
 } from "mdbreact";
@@ -20,11 +21,13 @@ var moment = require('moment');
 /*
  * Using redux selectors to access the state within the store
  * https://react-redux.js.org/next/api/hooks#useselector
+ * https://react-redux.js.org/api/hooks#usedispatch
  */
 
 const Question = (props) => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
     const user = useSelector(state => state.auth.user);
+    const dispatch = useDispatch();
     return (
     <MDBRow>
         <MDBCol md="1" />
@@ -86,10 +89,19 @@ const Question = (props) => {
                             Add an answer
                         </MDBBtn>
                     </Link>
-                    <MDBBtn className="actionBtn" size="md" color="pink">
-                        <MDBIcon icon="thumbs-up" />
-                        I was asked this too!
-                    </MDBBtn>
+                    {
+                        user !== null ?
+                            props.question.voters.includes(user._id) ?
+                                <MDBBtn disabled className="actionBtn" size="md" color="unique">
+                                    <MDBIcon icon="thumbs-up" />
+                                    I was asked this too!
+                                </MDBBtn>
+                            :   <MDBBtn className="actionBtn" size="md" color="pink" onClick={() => dispatch(upvoteQuestion(props.question._id, user._id))}>
+                                    <MDBIcon icon="thumbs-up" />
+                                    I was asked this too!
+                                </MDBBtn>
+                        : null
+                    }
                 </div>
             </MDBCard>
         </MDBCol>
