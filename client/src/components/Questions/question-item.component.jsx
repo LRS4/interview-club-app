@@ -26,7 +26,7 @@ var moment = require('moment');
 
 const Question = (props) => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-    const user = useSelector(state => state.auth.user);
+    const user = props.user
     const dispatch = useDispatch();
     return (
     <MDBRow>
@@ -91,12 +91,12 @@ const Question = (props) => {
                     </Link>
                     {
                         user !== null ?
-                            props.question.voters.includes(user._id) ?
+                            props.question.voters.includes(user.id) ?
                                 <MDBBtn disabled className="actionBtn" size="md" color="unique">
                                     <MDBIcon icon="thumbs-up" />
                                     I was asked this too!
                                 </MDBBtn>
-                            :   <MDBBtn className="actionBtn" size="md" color="pink" onClick={() => dispatch(upvoteQuestion(props.question._id, user._id))}>
+                            :   <MDBBtn className="actionBtn" size="md" color="pink" onClick={() => dispatch(upvoteQuestion(props.question._id, user.id))}>
                                     <MDBIcon icon="thumbs-up" />
                                     I was asked this too!
                                 </MDBBtn>

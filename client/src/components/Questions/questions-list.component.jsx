@@ -73,6 +73,7 @@ class QuestionsList extends Component {
             return (
                 <Question 
                     question={question}
+                    user={this.props.user}
                     deleteQuestion={this.deleteQuestion}
                     key={question._id}
                 />
@@ -162,7 +163,8 @@ const mapStateToProps = (state) => {
     return {
         questions: state.questions.questions,
         fetching: state.questions.fetching,
-        error: state.questions.error
+        error: state.questions.error,
+        user: state.auth.user
     }
 }
 

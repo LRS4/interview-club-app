@@ -49,7 +49,11 @@ router.route('/').post((req, res) => {
 router.route('/user').get(auth, (req, res) => {
     User.findById(req.user.id)
         .select('-password')
-        .then(user => res.json(user));
+        .then(user => res.json({
+            id: user._id,
+            username: user.username,
+            email: user.email
+        }));
 });
 
 module.exports = router;

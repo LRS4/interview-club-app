@@ -66,12 +66,12 @@ const Answer = (props) => {
                     <div className="flex-row">
                         {
                         user !== null ?
-                            props.answer.voters.includes(user._id) ?
+                            props.answer.voters.includes(user.id) ?
                                 <MDBBtn disabled className="actionBtn" size="md" color="unique">
                                     <MDBIcon icon="thumbs-up" />
                                     This answer helped!
                                 </MDBBtn>
-                            :   <MDBBtn className="actionBtn" size="md" color="pink" onClick={() => dispatch(upvoteAnswer(props.qid, props.answer._id, user._id))}>
+                            :   <MDBBtn className="actionBtn" size="md" color="pink" onClick={() => dispatch(upvoteAnswer(props.qid, props.answer._id, user.id))}>
                                     <MDBIcon icon="thumbs-up" />
                                     This answer helped!
                                 </MDBBtn>
