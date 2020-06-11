@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
-import axios from 'axios';
 import './create-question.css'
 import Sectors from './sectors.js';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { addQuestion } from './../../actions/questionsActions';
 
-export default class CreateQuestion extends Component {
+class CreateQuestion extends Component {
     constructor(props) {
         super(props);
 
@@ -13,32 +15,12 @@ export default class CreateQuestion extends Component {
         // this.onChangeUsername = this.onChangeUsername.bind(this);
 
         this.state = {
-            username: "",
             text: "", 
             job: "",
             sector: "",
             company: "",
-            users: [],
             sectors: [Sectors.sort((a, b) => a.localeCompare(b))][0]
         }
-    }
-
-    componentDidMount = () => {
-        axios.get('/users')
-            .then(response => {
-                if (response.data.length > 0) {
-                    this.setState({
-                        users: response.data.map(user => user.username),
-                        username: response.data[0].username
-                    })
-                }
-            })
-        }
-
-    onChangeUsername = (e) => {
-        this.setState({
-            username: e.target.value
-        });
     }
 
     onChangeText = (e) => {
@@ -65,27 +47,31 @@ export default class CreateQuestion extends Component {
         })
     }
 
-    onSubmit = async (e) => {
+    onSubmit = (e) => {
         e.preventDefault();
 
         const question = {
-            username: this.state.username,
+            username: this.props.user.username,
             text: this.state.text, 
             job: this.state.job,
             sector: this.state.sector,
             company: this.state.company
         }
 
-        console.log(question);
+        this.props.addQuestion(question);
 
-        await axios.post('/questions/add', question)
-                .then(result => console.log(result.data))
-                .catch(err => console.log("Error: " + err));
+        // Moved to redux action creator
+        // await axios.post('/questions/add', question)
+        //         .then(result => console.log(result.data))
+        //         .catch(err => console.log("Error: " + err));
 
-        window.location = '/';
+        this.props.history.push('/');
     }
 
     render() {
+        const { isAuthenticated } = this.props;
+        if (!isAuthenticated) return <Redirect to='/login' />
+
         return (
             <MDBContainer>
                 <MDBRow>
@@ -101,7 +87,7 @@ export default class CreateQuestion extends Component {
                                 onChange={this.onChangeText}
                                 value={this.state.text}
                                 required
-                                maxlength="300"
+                                maxLength="300"
                             />
                             <MDBInput 
                                 label="What was the job?" 
@@ -111,7 +97,7 @@ export default class CreateQuestion extends Component {
                                 onChange={this.onChangeJob}
                                 value={this.state.job}
                                 required
-                                maxlength="60"
+                                maxLength="60"
                             />
                             <div className="select">
                                 <select itemRef="userInput"
@@ -141,14 +127,6 @@ export default class CreateQuestion extends Component {
                                 success="right"
                                 onChange={this.onChangeCompany}
                             />
-                            <MDBInput 
-                                label="User" 
-                                group type="text" 
-                                validate
-                                error="wrong" 
-                                success="right"
-                                onChange={this.onChangeUsername}
-                            />
                         </div>
                         <div className="text-center">
                             <MDBBtn className="interviewClubBtn" type="submit" color="pink">
@@ -163,3 +141,17 @@ export default class CreateQuestion extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    user: state.auth.user,
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addQuestion: (question) => dispatch(addQuestion(question))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateQuestion);

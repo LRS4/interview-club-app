@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { addAnswer } from './../../actions/questionsActions';
+import { updateAnswer } from './../../actions/questionsActions';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
-import '../Questions/create-question.css'
-import Sectors from '../Questions/sectors.js';
+import axios from 'axios';
+import './../Questions/create-question.css';
+import Sectors from './../Questions/sectors';
 
-class CreateAnswer extends Component {
+class EditAnswer extends Component {
     constructor(props) {
         super(props);
 
@@ -15,12 +15,31 @@ class CreateAnswer extends Component {
         // this.onChangeUsername = this.onChangeUsername.bind(this);
 
         this.state = {
-            text: "", 
-            job: "",
-            sector: "",
-            company: "",
+            username: this.props.answer ? String(this.props.answer.username) : "",
+            text: this.props.answer ? String(this.props.answer.text) : "", 
+            job: this.props.answer ? String(this.props.answer.job) : "",
+            sector: this.props.answer ? String(this.props.answer.sector) : "",
+            company: this.props.answer ? String(this.props.answer.company) : "",
+            users: [],
             sectors: [Sectors.sort((a, b) => a.localeCompare(b))][0]
         }
+    }
+
+    componentDidMount = () => {
+        axios.get('/users')
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        users: response.data.map(user => user.username)
+                    })
+                }
+            })
+    }
+
+    onChangeUsername = (e) => {
+        this.setState({
+            username: e.target.value
+        });
     }
 
     onChangeText = (e) => {
@@ -38,55 +57,55 @@ class CreateAnswer extends Component {
     onChangeSector = (e) => {
         this.setState({
             sector: e.target.value
-        })
+        });
     }
 
     onChangeCompany = (e) => {
         this.setState({
             company: e.target.value
-        })
+        });
     }
 
     onSubmit = (e) => {
         e.preventDefault();
 
         const answer = {
-            username: this.props.user.username,
+            username: this.state.username,
             text: this.state.text, 
             job: this.state.job,
             sector: this.state.sector,
             company: this.state.company
         }
 
-        this.props.addAnswer(this.props.match.params.qid, answer);
+        console.log(answer);
+
+        this.props.updateAnswer(
+            this.props.match.params.qid,
+            this.props.answer._id,
+            answer
+        );
 
         this.props.history.push(`/answers/${this.props.match.params.qid}`);
     }
 
     render() {
-        const { isAuthenticated } = this.props;
-        if (!isAuthenticated) return <Redirect to='/login' />
-
         return (
-            this.props.question === undefined ? window.location = '/' :
+            this.props.answer === undefined ? window.location = '/' :
             <MDBContainer>
-                <h3 className="text-center" style={{ marginTop: "10px" }}>
-                    { this.props.question.text }
-                </h3>
                 <MDBRow>
                     <MDBCol md="3" />
                     <MDBCol md="6">
                     <form onSubmit={this.onSubmit}>
-                        <p className="h5 text-center mb-4"></p>
+                        <p className="h5 text-center mb-4 mt-3">
+                            { this.props.question }
+                        </p>
                         <div className="grey-text">
                             <MDBInput 
                                 type="textarea" 
-                                label="What was your answer? 2500 character limit" 
+                                label="What was your answer?" 
                                 rows="5" 
                                 onChange={this.onChangeText}
                                 value={this.state.text}
-                                required
-                                maxlength="2500"
                             />
                             <MDBInput 
                                 label="What was the job?" 
@@ -94,8 +113,6 @@ class CreateAnswer extends Component {
                                 validate error="wrong"
                                 success="right" 
                                 onChange={this.onChangeJob}
-                                required
-                                maxlength="60"
                                 value={this.state.job}
                             />
                             <div className="select">
@@ -124,13 +141,22 @@ class CreateAnswer extends Component {
                                 validate
                                 error="wrong" 
                                 success="right"
+                                value={this.state.company}
                                 onChange={this.onChangeCompany}
-                                maxlength="40"
+                            />
+                            <MDBInput 
+                                label="User" 
+                                group type="text" 
+                                validate
+                                error="wrong" 
+                                success="right"
+                                value={this.state.username}
+                                onChange={this.onChangeUsername}
                             />
                         </div>
                         <div className="text-center">
-                            <MDBBtn type="submit" className="interviewClubBtn" color="pink">
-                                Submit
+                            <MDBBtn className="interviewClubBtn" type="submit" color="pink">
+                                Save Changes
                             </MDBBtn>
                         </div>
                     </form>
@@ -143,18 +169,23 @@ class CreateAnswer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    let id = String(ownProps.match.params.qid);
-    return {
-        question: state.questions.questions.find(question => question._id === id),
-        user: state.auth.user,
-        isAuthenticated: state.auth.isAuthenticated
+    let qid = String(ownProps.match.params.qid);
+    let id = String(ownProps.match.params.id);
+    let question = state.questions.questions.find(question => question._id === qid)
+    if (question) {
+        return {
+            answer: question.answers.find(answer => answer._id === id),
+            question: question.text
+        }
+    } else {
+        return window.location = '/';
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addAnswer: (qid, answer) => dispatch(addAnswer(qid, answer))
+        updateAnswer: (qid, id, answer) => dispatch(updateAnswer(qid, id, answer))
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateAnswer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditAnswer);

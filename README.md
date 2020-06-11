@@ -33,9 +33,10 @@ npm start
 
 Environment variables
 * Create .env file
-* ATLAS_URI = the MongoDB Atlas connection string
+* ATLAS_URI = MongoDB Atlas connection string
+* API_KEY = API key
+* JWT_SECRET = JWT secret key
 * NODE_ENV = 'production' or 'deployment' Express settings
-* REACT_APP_LOCAL_API_ENDPOINT = 'http://localhost:5000' to seperate production and development environments
 
 ## Packages used
 
@@ -78,6 +79,8 @@ npm install moment
 * Postman - to test API calls
 * MongoDB Atlas and Compass
 * VS Code
+* [Bcrypt](https://www.npmjs.com/package/bcryptjs)
+* [JWT](https://jwt.io/)
 
 ## References
 
@@ -89,3 +92,7 @@ npm install moment
 * [nodemon](https://www.npmjs.com/package/nodemon)
 * [MDBootstrap](https://mdbootstrap.com/docs/react/getting-started/quick-start/)
 * [Deployment](https://coursework.vschool.io/deploying-mern-with-heroku/)
+* [JWT Authorisation Tutorial](https://www.youtube.com/watch?v=USaB1adUHM0)
+* [User Registration](https://jasonwatmore.com/post/2017/09/16/react-redux-user-registration-and-login-tutorial-example)
+* [Redux Selector Hooks](https://react-redux.js.org/next/api/hooks#useselector)
+* [Protected Routes](https://www.youtube.com/watch?v=xY_27UI2W5U)

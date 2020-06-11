@@ -1,13 +1,20 @@
 const router = require('express').Router();
+const auth = require('../middleware/auth');
 let Question = require('../models/question.model');
 
+// @route   GET questions
+// @desc    Get all questions
+// @access  Public
 router.route('/').get((req, res) => {
     Question.find()
         .then(questions => res.json(questions))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
+// @route   POST questions/add
+// @desc    Add a question
+// @access  Private
+router.route('/add').post(auth, (req, res) => {
     const username = req.body.username;
     const text = req.body.text;
     const job = req.body.job;
@@ -23,23 +30,32 @@ router.route('/add').post((req, res) => {
     });
 
     newQuestion.save()
-        .then(() => res.json('Question added!'))
+        .then(() => res.status(200).json(newQuestion))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// @route   GET questions/:id
+// @desc    Find question by id
+// @access  Public
 router.route('/:id').get((request, response) => {
     Question.findById(request.params.id)
         .then(question => response.json(question))
         .catch(err => response.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').delete((request, response) => {
+// @route   DELETE questions/:id
+// @desc    Delete a quesiton by id
+// @access  Private
+router.route('/:id').delete(auth, (request, response) => {
     Question.findByIdAndDelete(request.params.id)
         .then(() => response.json('Question deleted.'))
         .catch(err => response.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:id').put((request, response) => {
+// @route   PUT questions/:id
+// @desc    Update a question by id
+// @access  Private
+router.route('/update/:id').put(auth, (request, response) => {
     Question.findById(request.params.id)
         .then(question => {
             question.username = request.body.username; 
@@ -55,7 +71,10 @@ router.route('/update/:id').put((request, response) => {
         .catch(err => response.status(400).json('Error: ' + err));
 });
 
-router.route('/vote/:id/:uid').put((request, response) => {
+// @route   PUT questions/vote/:id/:uid
+// @desc    Allows user to upvote a question
+// @access  Private
+router.route('/vote/:id/:uid').put(auth, (request, response) => {
     Question.findById(request.params.id)
         .then(question => {
             if (question.voters.some(voter => voter == request.params.uid)) {
